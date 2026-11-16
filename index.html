@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#000000">
+<meta name="description" content="Japonessa allergen guide / guía de alérgenos — English + Español.">
+<title>Japonessa · Allergen Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Audiowide&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<style>
+  :root{
+    --bg:#F6F3F3;
+    --ink:#161414;
+    --red:#C8102E;
+    --red-dark:#9E0B23;
+    --blue:#0066CC;
+    --card:#FFFFFF;
+    --line:#E4DEDE;
+    --muted:#6E6666;
+    --amber-bg:#FFF4E0;
+    --amber-ink:#8A5A00;
+    --green-bg:#E8F5E9;
+    --green-ink:#1B5E20;
+    --green:#2E7D32;
+    --radius:14px;
+  }
+  body.dark{
+    --bg:#131010;
+    --ink:#F1EDED;
+    --card:#1C1919;
+    --line:#342E2E;
+    --muted:#A39A9A;
+    --amber-bg:#38290D;
+    --amber-ink:#F2C879;
+    --green-bg:#132B18;
+    --green-ink:#86DB92;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.5;transition:background .2s,color .2s}
+  
+  body.dark .mode button.active{color:#131010}
+  body.dark .mode button.active.avoid{color:#fff}
+  body.dark .mode button.active.safe{color:#fff}
+  body.dark .card-head:active{background:transparent}
+  body.dark table.alg td{border-bottom-color:#2C2727}
+  body.dark table.alg tr.match td{background:#331119}
+
+  header{background:#000;color:#fff;padding:18px 16px 16px;text-align:center;position:relative}
+  .themeBtn{background:transparent;border:1.5px solid #4A4444;color:#fff;border-radius:999px;width:46px;height:30px;font-size:14px;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;flex:none}
+  .themeBtn:active{background:#221E1E}
+  .langBtn{background:transparent;border:1.5px solid #4A4444;color:#fff;border-radius:999px;width:46px;height:30px;padding:0;font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.06em;cursor:pointer;flex:none}
+  .topRow{display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:880px;margin:0 auto}
+  .topRow .logo{flex:1}
+  .langBtn:active{background:#221E1E}
+  @media(max-width:600px){.logo{font-size:clamp(17px,5.4vw,24px)}}
+  .logo{display:flex;align-items:center;justify-content:center;font-family:'Audiowide',sans-serif;font-size:clamp(22px,6.5vw,36px);letter-spacing:.14em;color:#fff;line-height:1;font-weight:400}
+  .logo .o{width:.94em;height:.82em;border:.088em solid #fff;border-radius:.27em;display:inline-flex;align-items:center;justify-content:center;margin:0 .17em;box-sizing:border-box;flex:none}
+  .logo .o i{display:block;width:.17em;height:.17em;background:#fff;border-radius:.045em}
+  header .rule{width:min(300px,70%);height:1px;background:#3A3535;margin:12px auto 8px}
+  header .cocina{font-family:'Audiowide',sans-serif;font-size:clamp(10px,2.6vw,13px);letter-spacing:.5em;text-indent:.5em;color:#fff}
+  header .sub{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#847C7C;margin-top:10px}
+
+  .wrap{max-width:880px;margin:0 auto;padding:16px 14px 60px}
+
+  .controls{position:sticky;top:0;z-index:20;background:var(--bg);padding:12px 0 8px;border-bottom:1px solid var(--line)}
+  .searchbox{display:flex;align-items:center;gap:8px;background:var(--card);border:2px solid var(--ink);border-radius:999px;padding:10px 16px;color:var(--ink)}
+  .searchbox svg{flex:none}
+  .searchbox input{flex:1;border:none;outline:none;font-size:16px;background:transparent;color:var(--ink);font-family:inherit}
+  .searchbox button.clear{border:none;background:var(--line);color:var(--ink);border-radius:50%;width:24px;height:24px;font-size:13px;cursor:pointer;display:none;align-items:center;justify-content:center}
+
+  .mode{display:flex;gap:6px;margin-top:10px}
+  .mode button{flex:1;padding:9px 6px;border-radius:999px;border:1.5px solid var(--ink);background:transparent;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink);transition:all .15s}
+  .mode button.active{background:var(--ink);color:#fff}
+  .mode button.active.avoid{background:var(--red);border-color:var(--red)}
+  .mode button.active.safe{background:var(--green);border-color:var(--green)}
+
+  .chips{display:flex;gap:6px;overflow-x:auto;padding:10px 2px 6px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chips button{flex:none;padding:6px 13px;border-radius:999px;border:1px solid var(--line);background:var(--card);font-family:inherit;font-size:12.5px;font-weight:500;cursor:pointer;color:var(--ink);white-space:nowrap}
+  .chips button.on{background:var(--red);border-color:var(--red);color:#fff;font-weight:600}
+  .chips.safeMode button.on{background:var(--green);border-color:var(--green)}
+
+  .hint{font-size:12px;color:var(--muted);margin-top:6px;text-align:center}
+  .count{font-size:13px;color:var(--muted);margin:14px 2px 8px}
+  .count b{color:var(--ink)}
+
+  .cat{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;letter-spacing:.1em;margin:22px 2px 10px;display:flex;align-items:center;gap:10px;text-transform:uppercase;animation:fadeSlideIn .35s ease-out both}
+  .cat::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .card-head{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;user-select:none}
+  .card-head:active{background:transparent}
+  .card-title{flex:1}
+  .card-title h3{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;letter-spacing:.02em}
+  .card-title .cat-tag{display:none;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+  .card.open > .card-head .card-title .cat-tag{display:block}
+  .badge{flex:none;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px}
+  .badge.hit{background:var(--red);color:#fff}
+  .badge.safe{background:var(--green-bg);color:var(--green-ink)}
+  .badge.caution{background:var(--amber-bg);color:var(--amber-ink)}
+  .chev{flex:none;transition:transform .2s;color:var(--muted)}
+  .card.open > .card-head .chev{transform:rotate(180deg)}
+
+  .card-body{display:none;padding:0 16px 16px;border-top:1px dashed var(--line)}
+  .card.open > .card-body{display:block}
+  .sec{margin-top:14px}
+  .sec h4{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:7px}
+  .ing{display:flex;flex-wrap:wrap;gap:6px}
+  .ing span{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:4px 10px;font-size:12.5px}
+  .ing button{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:4px 10px;font:inherit;font-size:12.5px;color:var(--ink);cursor:pointer;text-align:left}
+  .ing button:active{background:var(--line)}
+
+  table.alg{width:100%;border-collapse:collapse;font-size:13px}
+  table.alg td{padding:6px 8px;border-bottom:1px solid #F0EBEB;vertical-align:top}
+  table.alg td.a{font-weight:600;white-space:nowrap;width:110px}
+  table.alg tr.match td{background:#FDEEF1}
+  table.alg tr.match td.a{color:var(--red)}
+  .cc{display:inline-block;background:var(--amber-bg);color:var(--amber-ink);border-radius:6px;padding:1px 7px;font-size:11px;font-weight:600;margin-left:4px}
+
+  .thumb{display:block;width:88px;height:88px;object-fit:cover;border-radius:10px;border:1px solid var(--line);margin:12px auto 0;cursor:zoom-in}
+  .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:100;align-items:center;justify-content:center;cursor:zoom-out;padding:18px}
+  .lightbox.on{display:flex}
+  .lightbox img{max-width:min(94vw,760px);max-height:86vh;border-radius:14px;box-shadow:0 8px 40px rgba(0,0,0,.6)}
+  .pair-toggle{display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;padding:2px 0}
+  .pair-toggle h4{margin:0;color:var(--blue)}
+  .pair-toggle .pair-chev{transition:transform .25s ease;width:14px;height:14px}
+  .pair-toggle.open .pair-chev{transform:rotate(180deg)}
+  .pair-wrap{display:none}
+  .pair-toggle.open + .pair-wrap{display:block}
+  .pair{background:var(--bg);border-radius:10px;padding:10px 12px;font-size:13px;margin-top:6px}
+  .pair b{font-weight:600}
+  .note{background:var(--amber-bg);color:var(--amber-ink);border-radius:10px;padding:10px 12px;font-size:12.5px;margin-top:10px}
+
+  .empty{text-align:center;padding:50px 20px;color:var(--muted)}
+  .empty .big{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;letter-spacing:.04em;color:var(--ink);margin-bottom:8px}
+
+  footer{max-width:880px;margin:0 auto;padding:20px 16px 40px;font-size:11.5px;color:var(--muted);text-align:center;border-top:1px solid var(--line)}
+  footer .warn{color:var(--red);font-weight:600}
+  .glossary{max-width:none;margin:22px 0 0;padding:0}
+  .glossary-toggle{margin-bottom:0}
+  .glossary-toggle > .card-head .card-title h3{text-transform:uppercase}
+  .glossary-content{display:none}
+  .glossary.open .glossary-content{display:block}
+  .glossary.open .glossary-toggle .chev{transform:rotate(180deg)}
+  .glossary-grid{margin-top:16px}
+  .glossary-copy{font-size:13px;color:var(--ink)}
+  .glossary .ing{margin-top:8px}
+
+  @keyframes fadeSlideIn{
+    from{opacity:0;transform:translateY(8px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  @keyframes slideDown{
+    from{opacity:0;transform:translateY(-6px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  @keyframes chipPop{
+    0%{transform:scale(1)}
+    50%{transform:scale(.93)}
+    100%{transform:scale(1)}
+  }
+
+  .card{animation:fadeSlideIn .3s ease-out both;transition:transform .15s ease,box-shadow .15s ease}
+  .cards-grid .card:nth-child(2){animation-delay:.04s}
+  .cards-grid .card:nth-child(3){animation-delay:.08s}
+  .cards-grid .card:nth-child(4){animation-delay:.1s}
+  .cards-grid .card:nth-child(5){animation-delay:.12s}
+  .cards-grid .card:nth-child(6){animation-delay:.14s}
+  .card:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.07)}
+  body.dark .card:hover{box-shadow:0 4px 14px rgba(0,0,0,.3)}
+  .card:active{transform:translateY(0)}
+
+  .card.open > .card-body{animation:slideDown .25s ease-out}
+  .chev{transition:transform .25s ease}
+
+  .chips button{transition:background .15s ease,border-color .15s ease,color .15s ease,transform .1s ease}
+  .chips button:hover{border-color:var(--ink)}
+  .chips button:active{transform:scale(.93)}
+  .chips button.on{animation:chipPop .2s ease-out}
+
+  .mode button{transition:all .15s ease}
+  .mode button:active{transform:scale(.95)}
+  .themeBtn,.langBtn{transition:background .15s ease,transform .1s ease}
+  .themeBtn:active,.langBtn:active{transform:scale(.9)}
+
+  .searchbox{transition:border-color .2s ease,box-shadow .2s ease}
+  .searchbox:focus-within{border-color:var(--red);box-shadow:0 0 0 3px rgba(200,16,46,.12)}
+  body.dark .searchbox:focus-within{box-shadow:0 0 0 3px rgba(200,16,46,.25)}
+
+  .thumb{transition:transform .2s ease,box-shadow .2s ease}
+  .thumb:hover{transform:scale(1.05);box-shadow:0 4px 16px rgba(0,0,0,.15)}
+
+  .badge{transition:transform .15s ease}
+  .badge:hover{transform:scale(1.05)}
+
+  .lightbox{transition:opacity .2s ease}
+  .lightbox img{transition:transform .2s ease}
+
+  @media(min-width:700px){
+    .cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .card{margin-bottom:0}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="topRow">
+    <button class="langBtn" id="langBtn" aria-label="Language / Idioma">ESP</button>
+    <div class="logo">JAP<span class="o"><i></i></span>NESSA</div>
+    <button class="themeBtn" id="themeBtn" aria-label="Theme / Tema">☀️</button>
+  </div>
+  <div class="rule"></div>
+  <div class="cocina">SUSHI COCINA</div>
+  <div class="sub" id="subT"></div>
+</header>
+
+<div class="wrap">
+  <div class="controls">
+    <div class="searchbox">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+      <input id="q" type="search" placeholder="" autocomplete="off" autocapitalize="none">
+      <button class="clear" id="clearBtn" aria-label="Clear / Borrar">✕</button>
+    </div>
+    <div class="mode">
+      <button id="mContains"></button>
+      <button id="mAvoid"></button>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="hint" id="hint"></div>
+  </div>
+  <div class="count" id="count"></div>
+  <div id="results"></div>
+  <section class="glossary" id="glossary" aria-labelledby="glossaryTitle">
+    <div class="card glossary-toggle" id="glossaryToggle">
+      <div class="card-head" role="button" tabindex="0" aria-expanded="false" aria-controls="glossaryCards">
+        <div class="card-title"><h3 id="glossaryTitle"></h3></div>
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="card-body glossary-content" id="glossaryCards"></div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <p><span class="warn" id="ft1"></span></p>
+  <p style="margin-top:6px" id="ft2"></p>
+</footer>
+
+<div class="lightbox" id="lightbox"><img id="lightboxImg" alt=""></div>
+
+<script>
+const DATA = {
+  "en": {
+    "ui": {
+      "sub": "Allergen Guide · Server Reference", "placeholder": "Search allergen, ingredient, or dish…", "modeC": "Contains allergen", "modeA": "Safe from allergen", "hint0": "Tap an allergen or type to search. “Safe from” shows dishes you can offer a guest with that allergy.", "hintC": "Showing dishes that CONTAIN what you search.", "hintA": "Showing dishes SAFE for a guest with that allergy. ⚠ = cross-contact risk only.", "of": "of", "dishesW": "dishes", "contain": "contain", "freeOf": "are safe from", "avoidNote": " (⚠ = cross-contact only — verify with kitchen)", "count0": "dishes · tap any card for ingredients, allergens & pairings", "badgeC": "Contains", "badgeS": "✓ Safe", "badgeW": "⚠ Cross-contact", "cc": "⚠ cross-contact", "noteA1": "⚠ No direct allergen, but ", "noteA2": "cross-contact risk", "noteA3": " (shared fryer/grill). Check with the guest and kitchen.", "ing": "Ingredients", "alg": "Allergens", "pairT": "Pairings — Upsell", "w": "White", "r": "Red", "sk": "Sake", "e1": "No fully safe dishes found", "e1b": "Every dish has this allergen or a cross-contact risk. Talk to the kitchen about modifications.", "e2": "No matches", "e2b": "Try another spelling, or tap an allergen chip above.", "ft1": "⚠ Always confirm with the kitchen / chef before guaranteeing any dish is allergen-safe.", "ft2": "Cross-contact flags (shared fryer vat / grill station) mean the item may contain traces — check in with the guest and the kitchen. Source: Patrick's Weekly Knowledge posts, Feb–Jun 2026. Menu items change; verify against the current menu.", "title": "Japonessa · Allergen Guide"
+    }, 
+    "cats": ["KITCHEN", "RAW BAR", "SIGNATURE ROLLS"], 
+    "dishes": [ 
+      {
+        "name": "Seaweed Salad", 
+        "cat": "KITCHEN", 
+        "ings": ["Seaweed mix", "Sesame seeds", "Lemon garnish", "Miso vinaigrette"], 
+        "alg": [{"a": "Gluten", "s": "Seaweed mix, miso vinaigrette"}, {"a": "Egg", "s": "Miso vinaigrette"}, {"a": "Soy", "s": "Seaweed mix, miso vinaigrette"}, {"a": "Mushroom", "s": "Seaweed mix — check with guest", "cc": true}, {"a": "Citrus", "s": "Lemon garnish"}, {"a": "Rice", "s": "Miso vinaigrette"}, {"a": "Sesame", "s": "Seaweed mix, sesame seeds"}], 
+        "pair": {"w": "Sauvignon Blanc, Albariño, or dry Riesling — crisp, mineral-forward.", "r": "Pinot Noir — light body, high acid, low tannin, earthy notes.", "s": "Light dry Junmai or Junmai Ginjo, chilled; sparkling sake also excellent."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/PhsyvrlXWLsoRDepDzuM3cfsX-uZOX-Jp7_r0lZ6u9A/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/e4671ade-9423-4716-96d4-28e0b82b3b72.jpg"
+      },
+      {
+        "name": "Calamari Salad", 
+        "cat": "KITCHEN", 
+        "ings": ["Fried calamari", "Sweet chili sauce", "Assorted greens", "Yuzu aioli", "Cherry tomatoes", "Cucumber", "Orange slice"], 
+        "alg": [{"a": "Gluten", "s": "Yuzu aioli, sweet chili sauce"}, {"a": "Soy", "s": "Yuzu aioli, sweet chili sauce"}, {"a": "Fish", "s": "Yuzu aioli"}, {"a": "Shellfish", "s": "Calamari (squid)"}, {"a": "Citrus", "s": "Orange slice, yuzu aioli"}, {"a": "Nightshade", "s": "Sweet chili sauce, cherry tomatoes"}, {"a": "Rapeseed", "s": "Sweet chili sauce, yuzu aioli, calamari (fryer oil is canola)", "cc": true}, {"a": "Onion", "s": "Yuzu aioli"}, {"a": "Rice", "s": "Yuzu aioli"}, {"a": "Sesame", "s": "Sweet chili sauce, yuzu aioli"}, {"a": "Garlic", "s": "Sweet chili sauce"}], 
+        "pair": {"w": "Pinot Grigio or Sauvignon Blanc; Prosecco for a bubbly contrast.", "r": "Pinot Noir or dry rosé — light, low tannin, won't overpower the squid.", "s": "Crisp dry Junmai Ginjo (Dewazakura) or earthy Yamahai Junmai; creamy nigori for the finish."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/_LXPO61JyF2OkNBBpppsb9Mpmw2xoOQ8V0gbxayNse8/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/61d7af74-0f61-4c6b-8a07-7402015a5c0a.jpg"
+      }, 
+      {
+        "name": "Takoyaki", 
+        "cat": "KITCHEN", 
+        "ings": ["Takoyaki dumpling (octopus)", "Kewpie Japanese mayo", "Takoyaki sauce", "Pickled red ginger (kizami)", "Bonito flakes"], 
+        "alg": [{"a": "Gluten", "s": "Takoyaki dumpling, takoyaki sauce"}, {"a": "Egg", "s": "Takoyaki dumpling, Kewpie mayo"}, {"a": "Soy", "s": "Takoyaki sauce, Kewpie mayo (soybean oil — usually OK for soy allergies, but clarify with guest)", "cc": true}, {"a": "Fish", "s": "Bonito flakes"}, {"a": "Shellfish", "s": "Takoyaki dumpling (octopus)"}, {"a": "Citrus", "s": "Pickled red ginger, takoyaki sauce"}, {"a": "Stone fruit", "s": "Takoyaki sauce"}, {"a": "Nightshade", "s": "Takoyaki sauce"}, {"a": "Rapeseed", "s": "Kewpie mayo"}], 
+        "pair": {"w": "Sauvignon Blanc or dry Riesling — cuts the strong umami; Riesling's sweetness balances it.", "r": "Fruity red blend or Pinot Noir — light body balances the dish.", "s": "Rich nama sake or Junmai — better closer to room temperature."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/91AHTniIwAL46WMYPrJNl8H7g5tk9UU5_telKBN4Of4/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/70d301b3-b4f4-4338-88e0-b22cc608a195.jpg"
+      }, 
+      {
+        "name": "Agedashi Tofu", 
+        "cat": "KITCHEN", 
+        "ings": ["Medium-textured fried tofu", "Scallion", "Bonito flakes", "Dashi broth"], 
+        "alg": [{"a": "Gluten", "s": "Tofu fried in same vat as gluten products", "cc": true}, {"a": "Soy", "s": "Medium-textured tofu"}, {"a": "Fish", "s": "Bonito flakes, dashi stock; fried in same vat as fish products", "cc": true}, {"a": "Shellfish", "s": "Fried in same vat as shellfish products", "cc": true}, {"a": "Onion", "s": "Scallion; fried in same vat as onion products", "cc": true}, {"a": "Rice", "s": "Fried in same vat as rice items", "cc": true}], 
+        "pair": {"w": "Sparkling (Cava, blanc de blancs, brut Champagne), Sauvignon Blanc, or dry Riesling.", "r": "Soft low-tannin Pinot Noir or semi-dry fruity red blend.", "s": "Light aromatic Junmai Ginjo or balanced Junmai Daiginjo."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/CuOAeI4ZClKuD9P6v4JPBV4WtfgwZ3w7xOy9iOLZvbg/resize:fit:1080:1080/plain/s3://toasttab/restaurants/restaurant-189440000000000000/menu/items/4/item-1100000000066961364_1722295991.jpg"
+      }, 
+      {
+        "name": "Garlic Short Ribs", 
+        "cat": "KITCHEN", 
+        "ings": ["Marinated beef short ribs", "Teriyaki sauce (contains beef stock)", "Sesame seeds", "Scallions", "Sliced orange", "Garlic"], 
+        "alg": [{"a": "Gluten", "s": "Beef ribs, teriyaki sauce"}, {"a": "Soy", "s": "Beef ribs, teriyaki sauce, grill spray"}, {"a": "Fish", "s": "Grilled on same station as fish", "cc": true}, {"a": "Citrus", "s": "Orange garnish"}, {"a": "Onion", "s": "Teriyaki sauce, scallions"}, {"a": "Rice", "s": "Beef ribs (mirin and sake in marinade)", "cc": true}, {"a": "Corn", "s": "Teriyaki sauce"}, {"a": "Sesame", "s": "Sesame seeds, beef ribs"}, {"a": "Garlic", "s": "Garlic marinade (signature ingredient)"}], 
+        "pair": {"w": "Full-bodied oaked Chardonnay, dry Riesling, or Albariño — acidity cuts the richness.", "r": "Syrah (savory pepper notes), Cabernet Sauvignon, or Malbec — tannins cut fat.", "s": "Kimoto/Yamahai, Junmai, or full-flavored genshu — robust, high acid."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/Q-asao4255uSKZKxdNZmMHwuQiJQAlZ2s9kxsvzQ3aQ/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/73d65677-cd82-4c84-8063-0a2f8cfa640c.jpg"
+      }, 
+      {
+        "name": "Ginger Chicken", 
+        "cat": "KITCHEN", 
+        "ings": ["Fried chicken", "Spinach", "Yellow onion", "Butter", "Spicy ginger sauce", "Sesame seeds", "Green onion"], 
+        "alg": [{"a": "Gluten", "s": "Spicy ginger sauce"}, {"a": "Soy", "s": "Spicy ginger sauce"}, {"a": "Fish", "s": "Spicy ginger sauce"}, {"a": "Nightshade", "s": "Spicy ginger sauce"}, {"a": "Rapeseed", "s": "Spicy ginger sauce"}, {"a": "Onion", "s": "Spicy ginger sauce, sautéed yellow onion, scallions"}, {"a": "Rice", "s": "Spicy ginger sauce"}, {"a": "Corn", "s": "Fried chicken (corn starch) — check with guest", "cc": true}, {"a": "Sesame", "s": "Spicy ginger sauce, sesame seeds"}, {"a": "Garlic", "s": "Spicy ginger sauce"}, {"a": "Dairy", "s": "Butter"}, {"a": "Ginger", "s": "Spicy ginger sauce"}], 
+        "pair": {"w": "Riesling, Pinot Gris/Grigio, or Sauvignon Blanc — balances the sharp ginger spice.", "r": "Pinot Noir or low-tannin fruity blends. Avoid high tannin — it turns the ginger bitter.", "s": "Earthy Junmai or taru sake — the woody taru aroma enhances the ginger-pepper-soy sauce."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/72n8vD3NS3tN7POtJ_Ljtpet35Gqob2kAOKpBGz9U5g/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/dd56b1c3-3831-4cdf-bb66-4da84827b029.jpg"
+      }, 
+      {
+        "name": "Tempura Brie", 
+        "cat": "KITCHEN", 
+        "ings": ["Tempura-fried brie cheese", "Raspberry soy sauce"], 
+        "alg": [{"a": "Gluten", "s": "Raspberry sauce, tempura brie"}, {"a": "Soy", "s": "Raspberry sauce, tempura brie"}, {"a": "Fish", "s": "Fried in same vat as fish", "cc": true}, {"a": "Shellfish", "s": "Fried in same vat as shellfish", "cc": true}, {"a": "Shrimp", "s": "Fried in same vat as shrimp", "cc": true}, {"a": "Mushroom", "s": "Fried in same vat as mushrooms", "cc": true}, {"a": "Onion", "s": "Fried in same vat as onions", "cc": true}, {"a": "Rice", "s": "Fried in same vat as rice products", "cc": true}, {"a": "Corn", "s": "Raspberry sauce, tempura brie"}, {"a": "Dairy", "s": "Brie cheese"}], 
+        "pair": {"w": "Champagne / traditional-method sparkling, unoaked Chardonnay, or semi-dry Riesling.", "r": "Pinot Noir or Merlot — light, low tannin, matches the brie's earthy creaminess.", "s": "Light aromatic Junmai Ginjo (Dewazakura) or Daiginjo — cuts the fried oil."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/IflcSq32tw7lo3CvVj-tmdcKpiz99etcLRfEgzIcTNE/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/cab19bc2-c465-44a6-ad83-d6ade00d947b.jpg"
+      }, 
+      {
+        "name": "Tempura Plate", 
+        "cat": "KITCHEN", 
+        "ings": ["Tempura veggies (white onion, Japanese pumpkin, asparagus, shiitake)", "Tempura shrimp", "Ground daikon radish", "Dashi broth"], 
+        "alg": [{"a": "Gluten", "s": "Tempura batter; fried in same vat as gluten products"}, {"a": "Soy", "s": "Fried in same vat as soy products", "cc": true}, {"a": "Fish", "s": "Dashi stock; fried in same vat as fish products", "cc": true}, {"a": "Shellfish", "s": "Tempura shrimp; fried in same vat as shellfish products", "cc": true}, {"a": "Shrimp", "s": "Tempura shrimp; fried in same vat as shrimp products", "cc": true}, {"a": "Mushroom", "s": "Shiitake mushroom (tempura veggies)"}, {"a": "Onion", "s": "White onion; fried in same vat as onion products", "cc": true}, {"a": "Rice", "s": "Fried in same vat as rice products", "cc": true}], 
+        "pair": {"w": "Sparkling (Cava, blanc de blancs, brut), Sauvignon Blanc, or oaky Chardonnay.", "r": "Malbec or medium-bodied Cabernet Sauvignon — tannins cut fried flavors.", "s": "Dry, acidic nama or undiluted genshu sake."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/hp3g0didDI3FKgMkDHYIsWz0zUxipUyjk2Jv6Wdap0s/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/23b863fc-0d51-478a-bc16-210032abd186.jpg"
+      },
+      {
+        "name": "Tempura Udon Soup", 
+        "cat": "KITCHEN", 
+        "ings": ["Dashi stock", "Udon wheat noodles", "Blanched asparagus", "Fish cake", "Tempura shrimp", "Onsen egg (optional)"], 
+        "alg": [{"a": "Gluten", "s": "Udon noodles, fish cake, tempura shrimp"}, {"a": "Egg", "s": "Onsen egg (optional)"}, {"a": "Soy", "s": "Fish cake"}, {"a": "Fish", "s": "Dashi stock, fish cake"}, {"a": "Shellfish", "s": "Tempura shrimp, fish cake"}, {"a": "Shrimp", "s": "Tempura shrimp"}], 
+        "pair": {"w": "Sauvignon Blanc or Albariño — crisp acidity cuts the broth's richness.", "r": "Pinot Noir — light body, low tannin, won't overwhelm the dish.", "s": "Dry Junmai — umami complements the broth without overwhelming the noodles."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/Sm5uEoSqiRJKxDwpdEAglDrYhLRtvLn0Pu1NbRZevmI/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/aac7f312-17b5-4f42-beb1-8984e1d051c0.jpg"
+      },
+      {
+        "name": "Spicy Chorizo Ramen", 
+        "cat": "KITCHEN", 
+        "ings": ["Creamy pork broth", "Itokiri togarashi", "Wheat/egg noodles", "Corn", "Scallion", "Bamboo shoots", "Chorizo", "Dried chili", "Onsen egg (optional)"], 
+        "alg": [{"a": "Gluten", "s": "Creamy pork broth, wheat/egg noodles, bamboo shoots"}, {"a": "Egg", "s": "Wheat/egg noodles, onsen egg"}, {"a": "Soy", "s": "Creamy pork broth, bamboo shoots"}, {"a": "Citrus", "s": "Itokiri togarashi"}, {"a": "Nightshade", "s": "Itokiri togarashi, dried chili"}, {"a": "Rapeseed", "s": "Wheat/egg noodles"}, {"a": "Onion", "s": "Scallion, bamboo shoots"}, {"a": "Pork", "s": "Creamy pork broth, chorizo"}, {"a": "Corn", "s": "Corn, chorizo"}, {"a": "Sesame", "s": "Creamy pork broth, bamboo shoots, itokiri togarashi"}, {"a": "Garlic", "s": "Creamy pork broth, chorizo"}, {"a": "Dairy", "s": "Creamy pork broth"}, {"a": "Ginger", "s": "Creamy pork broth, itokiri togarashi"}], 
+        "pair": {"w": "Riesling, Pinot Gris, or oaked Chardonnay — balances the rich, fatty, spicy broth.", "r": "Pinot Noir or red blends — bright cherry/berry notes cut through pork fat.", "s": "Full-bodied high-acid Junmai or creamy Nigori (Joto Junmai Nigori, Sujin Junmai)."}
+      },
+      {
+        "name": "Scallop Ceviche", 
+        "cat": "RAW BAR", 
+        "ings": ["Scallop (hotate)", "Octopus (tako)", "Sweet shrimp (amaebi)", "Spicy vinegar lime sauce", "Pico de gallo", "Tortilla chips"], 
+        "alg": [{"a": "Fish", "s": "Chips fried in same vat as fish", "cc": true}, {"a": "Shellfish", "s": "Scallop, octopus, sweet shrimp; chips fried in same vat as shellfish"}, {"a": "Shrimp", "s": "Sweet shrimp; chips fried in same vat as shrimp"}, {"a": "Mushroom", "s": "Chips fried in same vat as mushrooms", "cc": true}, {"a": "Citrus", "s": "Spicy vinegar lime sauce, pico de gallo, tortilla chips"}, {"a": "Nightshade", "s": "Spicy vinegar sauce, pico de gallo"}, {"a": "Onion", "s": "Pico de gallo; chips fried in same vat as onions", "cc": true}, {"a": "Rice", "s": "Chips fried in same vat as rice products", "cc": true}, {"a": "Corn", "s": "Tortilla chips"}, {"a": "Garlic", "s": "Spicy vinegar lime sauce"}], 
+        "pair": {"w": "Albariño or Sauvignon Blanc — crisp, mineral-driven, complements the briny shellfish.", "r": "Pinot Noir or select red blends (check with bartenders) — light, high acid, low tannin.", "s": "Light crisp Junmai Ginjo or Daiginjo — clean, elegant, like a good Sauvignon Blanc."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/R778HKckvh54HBu0G7kGEOXDuI8SVX5K24p2pIUUY_w/resize:fit:1080:1080/plain/s3://toasttab/restaurants/restaurant-189440000000000000/menu/items/2/item-1100000000066961462_1722284596.jpg"
+      }, 
+      {
+        "name": "Hamachi / Salmon Usuzukuri", 
+        "cat": "RAW BAR", 
+        "ings": ["Hamachi or salmon", "Yuzu citrus sauce", "Chili oil", "Pico de gallo", "Sliced onion", "Cilantro"], 
+        "alg": [{"a": "Gluten", "s": "Chili oil, yuzu citrus sauce"}, {"a": "Palm", "s": "Chili oil"}, {"a": "Soy", "s": "Yuzu citrus sauce, chili oil"}, {"a": "Fish", "s": "Hamachi / salmon"}, {"a": "Citrus", "s": "Pico de gallo, yuzu citrus sauce"}, {"a": "Nightshade", "s": "Pico de gallo, chili oil"}, {"a": "Onion", "s": "Sliced onion, chili oil"}, {"a": "Rice", "s": "Chili oil"}, {"a": "Corn", "s": "Chili oil"}, {"a": "Sesame", "s": "Chili oil"}, {"a": "Garlic", "s": "Chili oil"}, {"a": "Cilantro", "s": "Cilantro garnish"}], 
+        "pair": {"w": "Dry to semi-dry Riesling or Albariño — crisp acidity, won't overpower the fish.", "r": "Pinot Noir — bright acid, very low tannin. Heavy reds clash with the fish oils.", "s": "Light crisp Junmai Ginjo, nama, or Daiginjo — elevates the raw fish texture."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/I9un-5kiHqeulssfG6UAmWyZXp3-svBwN4IEcl3KK-o/resize:fit:1080:1080/plain/s3://toasttab/restaurants/restaurant-189440000000000000/menu/items/4/item-1100000000066961464_1722295874.jpg"
+      }, 
+      {
+        "name": "Salmon Tartare", 
+        "cat": "RAW BAR", 
+        "ings": ["Salmon", "Mango", "Pico de gallo", "Avocado", "Yuzu ponzu", "Mango shiso sauce"], 
+        "alg": [{"a": "Gluten", "s": "Yuzu ponzu"}, {"a": "Soy", "s": "Yuzu ponzu"}, {"a": "Fish", "s": "Salmon"}, {"a": "Citrus", "s": "Pico de gallo, yuzu ponzu"}, {"a": "Stone fruit", "s": "Mango, mango shiso sauce"}, {"a": "Nightshade", "s": "Pico de gallo"}, {"a": "Onion", "s": "Pico de gallo"}, {"a": "Avocado", "s": "Avocado"}], 
+        "pair": {"w": "Sauvignon Blanc or Riesling — bright, aromatic, slightly sweet.", "r": "Light fruity Pinot Noir — low tannin, high acid prevents bitter metallic notes.", "s": "Crisp aromatic Junmai Ginjo (mirrors the mango) or creamy Nigori (balances the buttery salmon)."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/icCSN98A-sjUumIN8o7hWAvspDeQrQKDFIJcrRq1eCI/resize:fit:1080:1080/plain/s3://toasttab/restaurants/restaurant-189440000000000000/menu/items/6/item-1100000000066961466_1722284643.jpg"
+      }, 
+      {
+        "name": "Sukiyaki Beef Tacos", 
+        "cat": "KITCHEN", 
+        "ings": ["Sukiyaki beef", "Flour tortillas", "Pico de gallo", "Fried scallions", "Chipotle guajillo sauce", "Lime garnish"], 
+        "alg": [{"a": "Gluten", "s": "Tortillas, chipotle guajillo sauce, sukiyaki beef; scallions fried in same vat as gluten"}, {"a": "Soy", "s": "Sukiyaki beef; scallions fried in soybean oil — clarify with guest", "cc": true}, {"a": "Fish", "s": "Sukiyaki beef; scallions fried in same vat as fish products", "cc": true}, {"a": "Shellfish", "s": "Scallions fried in same vat as shellfish products", "cc": true}, {"a": "Shrimp", "s": "Scallions fried in same vat as shrimp products", "cc": true}, {"a": "Mushroom", "s": "Scallions fried in same vat as mushroom products", "cc": true}, {"a": "Citrus", "s": "Pico de gallo, chipotle guajillo sauce, lime garnish"}, {"a": "Nightshade", "s": "Pico de gallo, chipotle guajillo sauce"}, {"a": "Onion", "s": "Pico de gallo, fried scallions, sukiyaki beef, chipotle guajillo sauce"}, {"a": "Rice", "s": "Scallions fried in same vat as rice products", "cc": true}, {"a": "Corn", "s": "Chipotle guajillo sauce; scallions fried in same vat as corn products", "cc": true}, {"a": "Garlic", "s": "Chipotle guajillo sauce"}], 
+        "pair": {"w": "Bright off-dry Riesling or lightly oaked Chardonnay — complements umami, cuts richness.", "r": "Light-to-medium reds with bright acidity, low tannin.", "s": "Junmai, semi-dry nama, or Yamahai — robust and savory for the sweet umami beef."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/sHXO7T-ZYf57_ypVpXN6SG7nf_HxN85mNR4FkrxzswM/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/58bd5d19-6c29-4f2e-8e09-bedc66e4cb34.jpg"
+      }, 
+      {
+        "name": "Emperor's Roll", 
+        "cat": "SIGNATURE ROLLS", 
+        "ings": ["Shrimp tempura", "Spicy snow crab mix", "Asparagus", "Bluefin tuna toro", "Avocado", "Jalapeños", "Habanero masago", "Tobiko", "Yuzu citrus dressing", "Sushi rice"], 
+        "alg": [{"a": "Gluten", "s": "Shrimp tempura, tobiko"}, {"a": "Egg", "s": "Spicy snow crab mix"}, {"a": "Soy", "s": "Yuzu citrus dressing, spicy crab mix (soybean oil), habanero masago, shrimp tempura (soy lecithin)"}, {"a": "Fish", "s": "Bluefin tuna toro, habanero masago, tobiko"}, {"a": "Shellfish", "s": "Shrimp tempura, snow crab"}, {"a": "Shrimp", "s": "Shrimp tempura"}, {"a": "Citrus", "s": "Yuzu citrus dressing"}, {"a": "Nightshade", "s": "Jalapeño peppers, spicy crab mix, habanero masago"}, {"a": "Rapeseed", "s": "Yuzu citrus dressing, spicy crab mix"}, {"a": "Rice", "s": "Sushi rice; shrimp fried in same vat as rice products"}, {"a": "Corn", "s": "Shrimp tempura (corn starch)"}, {"a": "Garlic", "s": "Spicy crab mix"}, {"a": "Dairy", "s": "Shrimp fried in same vat as dairy products", "cc": true}, {"a": "Avocado", "s": "Avocado"}], 
+        "pair": {"w": "Bright off-dry Riesling or lightly oaked Chardonnay — cuts the rich toro and tempura.", "r": "Medium-bodied reds, bright acidity, mild tannins.", "s": "Junmai or semi-dry Daiginjo — balances the fatty toro and strong dressing."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/Jt1PGws8k2YO_Scv4gASGmbAGSEG9Izbky8Uj_dVXCg/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/5552cd79-94ca-42b6-84eb-6db668547ab5.jpg"
+      }, 
+      {
+        "name": "Matador", 
+        "cat": "SIGNATURE ROLLS", 
+        "ings": ["Spicy yellowtail", "Cream cheese", "Cucumber", "Cilantro", "Seared cayenne filet mignon", "Jalapeños", "Garlic ponzu", "Chili oil", "Sushi rice"], 
+        "alg": [{"a": "Gluten", "s": "Chili oil, garlic ponzu"}, {"a": "Palm", "s": "Chili oil"}, {"a": "Egg", "s": "Spicy yellowtail"}, {"a": "Soy", "s": "Spicy yellowtail (soybean oil in mayo), garlic ponzu, chili oil"}, {"a": "Fish", "s": "Spicy yellowtail"}, {"a": "Citrus", "s": "Garlic ponzu"}, {"a": "Nightshade", "s": "Spicy yellowtail, cayenne-spiced filet mignon, garlic ponzu, chili oil, jalapeños"}, {"a": "Rapeseed", "s": "Garlic ponzu, spicy yellowtail"}, {"a": "Onion", "s": "Chili oil"}, {"a": "Rice", "s": "Sushi rice, chili oil"}, {"a": "Corn", "s": "Chili oil"}, {"a": "Sesame", "s": "Chili oil"}, {"a": "Garlic", "s": "Spicy yellowtail, garlic ponzu, chili oil"}, {"a": "Dairy", "s": "Cream cheese"}, {"a": "Cilantro", "s": "Cilantro"}], 
+        "pair": {"w": "Dry Riesling or unoaked Sauvignon Blanc — high acid cuts fish fat, balances the beef.", "r": "Pinot Noir — light body, bright acid, mild tannins for the raw fish + steak combo.", "s": "Junmai Ginjo or rich Tokubetsu Junmai — balances buttery hamachi and umami beef."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/5OnFfgSc9gllgOuPmUa3FYqdgJatV3ydaU_468HEkXU/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/586a6b1a-ca89-4768-9b86-07a0474ca242.jpg"
+      }, 
+      {
+        "name": "Barcelona Sunset", 
+        "cat": "SIGNATURE ROLLS", 
+        "ings": ["Spicy yellowtail", "Avocado", "Cucumber", "Yellowtail", "Tobiko", "Habanero aioli", "Sushi rice"], 
+        "alg": [{"a": "Egg", "s": "Spicy yellowtail, habanero aioli"}, {"a": "Soy", "s": "Spicy yellowtail, habanero aioli"}, {"a": "Fish", "s": "Spicy yellowtail, yellowtail, tobiko"}, {"a": "Nightshade", "s": "Spicy yellowtail, habanero aioli"}, {"a": "Rice", "s": "Sushi rice"}, {"a": "Garlic", "s": "Spicy yellowtail, habanero aioli"}, {"a": "Ginger", "s": "Habanero aioli"}, {"a": "Avocado", "s": "Avocado"}], 
+        "pair": {"w": "Riesling or Albariño — crisp acid + touch of sugar cleanses the habanero heat.", "r": "Light-bodied low-tannin reds, slightly chilled — high tannin worsens spicy heat.", "s": "Ginjo / Junmai Ginjo chilled for clean flavors, or creamy Nigori to neutralize heat."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/s5hpKWtA7ihKvsDR4m06zu3JAL6rW6XWWgb0VXi4jdM/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/68f8ad90-89c3-462b-a4c2-558061765153.jpg"
+      }, 
+      {
+        "name": "Heat Stroke", 
+        "cat": "SIGNATURE ROLLS", 
+        "ings": ["Spicy tuna", "Avocado", "Cucumber", "Atlantic salmon", "Lime flesh", "Jalapeños", "Cilantro", "Sushi rice"], 
+        "alg": [{"a": "Egg", "s": "Spicy tuna"}, {"a": "Soy", "s": "Spicy tuna"}, {"a": "Fish", "s": "Spicy tuna, Atlantic salmon"}, {"a": "Citrus", "s": "Lime flesh"}, {"a": "Nightshade", "s": "Spicy tuna, jalapeños"}, {"a": "Rice", "s": "Sushi rice"}, {"a": "Garlic", "s": "Spicy tuna"}, {"a": "Avocado", "s": "Avocado"}, {"a": "Cilantro", "s": "Cilantro"}], 
+        "pair": {"w": "Riesling or dry rosé — slight sweetness balances the spice and fish.", "r": "Pinot Noir or lighter red blend, slightly chilled — bright and fruity with the heat.", "s": "Nigori — creamy texture and touch of sweetness coats the tongue and cools the burn."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/os-tR6WKCUdlOg8ie-m_O4fsp5vehhuZTwkcRjdK9lM/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/80a4b015-385e-405f-8cca-611f7d73cd5b.jpg"
+      },
+      {
+        "name": "King Midas", 
+        "cat": "SIGNATURE ROLLS", 
+        "ings": ["Spicy tuna", "Avocado", "Cucumber", "Hamachi", "Lime flesh", "Jalapeños", "Cilantro", "Sushi rice"], 
+        "alg": [{"a": "Egg", "s": "Spicy tuna"}, {"a": "Soy", "s": "Spicy tuna* (mix contains soybean oil — confirm with guest)"}, {"a": "Fish", "s": "Spicy tuna, Hamachi"}, {"a": "Citrus", "s": "Lime flesh"}, {"a": "Nightshade", "s": "Spicy tuna, jalapeños"}, {"a": "Rice", "s": "Sushi rice"}, {"a": "Garlic", "s": "Spicy tuna"}, {"a": "Rapeseed", "s": "Spicy tuna* (mix contains canola oil — confirm with guest)"}, {"a": "Ginger", "s": "Pickled ginger"}, {"a": "Avocado", "s": "Avocado"}, {"a": "Cilantro", "s": "Cilantro"}], 
+        "pair": {"w": "Off-dry Riesling or Albariño — slight sweetness cools the chili heat from the spicy tuna and jalapeño; high acidity cuts through the creamy avocado and rich fish.", "r": "Pinot Noir — very low tannins and strong acidity cut through the rich avocado, yellowtail and spicy tuna; earthy, subtle red fruit enhances the umami of the raw fish without fighting the cilantro.", "s": "Junmai Ginjo — bright acidity and fruity aromas cut through the avocado and buttery yellowtail while enhancing the lime and cilantro. Alternative: a lighter nigori — lightly sweet and cloudy, it coats the palate and cools the burn of the jalapeño."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/1gZMq4LnCKuJUTLePipIV0zdOUE5BsbItg69dKJh-sw/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/cd2c6a50-fd11-4b20-9932-6a114b762d0d.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/OxOrS67iiyPx0DM3rDWaF2gegfJdpO9XKrf7akcvoFw/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/cd2c6a50-fd11-4b20-9932-6a114b762d0d.jpg"
+      },
+      {
+        "name": "Diabla Say",
+        "cat": "SIGNATURE ROLLS",
+        "ings": ["Spicy tuna", "Seven spice tuna", "Cilantro", "Yamagobo", "Habanero citrus", "Truffle oil", "Scallion", "Habanero masago", "Sushi rice"],
+        "alg": [{"a": "Gluten", "s": "Habanero citrus, habanero masago, yamagobo"}, {"a": "Egg", "s": "Spicy tuna"}, {"a": "Soy", "s": "Spicy tuna* (mix contains soybean oil — confirm with guest), habanero citrus, yamagobo"}, {"a": "Fish", "s": "Spicy tuna, seven spice tuna, habanero masago"}, {"a": "Mushroom", "s": "Truffle oil"}, {"a": "Citrus", "s": "Seven spice tuna, habanero citrus"}, {"a": "Nightshade", "s": "Spicy tuna, seven spice tuna, habanero masago, habanero citrus"}, {"a": "Onion", "s": "Scallion"}, {"a": "Rice", "s": "Sushi rice"}, {"a": "Sesame", "s": "Seven spice tuna"}, {"a": "Garlic", "s": "Spicy tuna"}, {"a": "Rapeseed", "s": "Spicy tuna* (mix contains canola oil — confirm with guest), habanero citrus, truffle oil"}, {"a": "Ginger", "s": "Pickled ginger, seven spice tuna"}, {"a": "Cilantro", "s": "Cilantro"}],
+        "pair": {"w": "Aromatic whites like Riesling — subtle residual sugar cools the habanero and seven-spice heat, while natural acidity handles the citrus marinade and cleanses the rich tuna. Avoid bone-dry or oaky whites (they clash with the chilis and make the alcohol taste harsh).", "r": "Pinot Noir — exceptionally low tannins and strong acidity cut through the habanero citrus and spicy tuna; earthy, subtle red fruit enhances the umami of the raw fish without fighting the cilantro and truffle.", "s": "Nigori — cloudy, creamy and sweet; the rice sediment coats the tongue and neutralizes the habanero heat. Drier alternative: a fruit-forward Junmai Ginjo with decent acidity — cuts the truffle oil, resets the palate and highlights the habanero-citrus and cilantro."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/XQLWTvDvpEV6_Ct7MlN4KrkcN7prEQciSQJuEx7pYEo/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/5d51f4da-8a03-4a73-ab02-41de07bc629f.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/QdyULU8D4Sb_gTr-CVPoZu7nx_WirqFm2smMUhJwt2A/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/5d51f4da-8a03-4a73-ab02-41de07bc629f.jpg"
+      },
+      {
+        "name": "Mr. Wonderful",
+        "cat": "SIGNATURE ROLLS",
+        "ings": ["Albacore tuna", "Yamagobo", "Cilantro", "Cucumber", "Sockeye salmon", "Avocado", "Jalapeño citrus", "Truffle oil", "Scallion", "Sushi rice"],
+        "alg": [{"a": "Gluten", "s": "Yamagobo"}, {"a": "Soy", "s": "Jalapeño citrus, yamagobo"}, {"a": "Fish", "s": "Sockeye salmon, albacore tuna"}, {"a": "Mushroom", "s": "Truffle oil"}, {"a": "Citrus", "s": "Jalapeño citrus"}, {"a": "Nightshade", "s": "Jalapeño citrus"}, {"a": "Onion", "s": "Scallion"}, {"a": "Rice", "s": "Sushi rice"}, {"a": "Rapeseed", "s": "Jalapeño citrus, truffle oil"}, {"a": "Ginger", "s": "Pickled ginger"}, {"a": "Avocado", "s": "Avocado"}, {"a": "Cilantro", "s": "Cilantro"}],
+        "pair": {"w": "High-acid Sauvignon Blanc — its aromatics mirror the green notes of cilantro, scallion and jalapeño; tropical fruit, grapefruit and lime zest amplify the citrus, and sharp acidity cleanses the palate through the truffle oil, avocado, sockeye and albacore.", "r": "Pinot Noir — high-acid, low-tannin red that handles the fatty sockeye and albacore and the earthy truffle while balancing the jalapeño citrus heat; subtle red fruit enhances the raw fish umami without fighting the cilantro and yamagobo. Avoid heavy, tannic reds like Cabernet Sauvignon (fish oils turn them metallic).", "s": "Crisp, clean Junmai Ginjo or Junmai Daiginjo — dry (high \"+\" Sake Meter Value) and fruity/floral; a refreshing palate cleanser that cuts the truffle and avocado while complementing the citrus, cilantro, salmon and albacore."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/Gv191T0hYpaZbIh-e2IkVbaFV6iBNuyM-83DolU4BmQ/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/88cb449e-553d-40e0-ad92-6ef5350eb85f.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/epeHk7v3NHYQJQjKbwVrlAGFR48K8TkNyyg8MG7aP5w/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/88cb449e-553d-40e0-ad92-6ef5350eb85f.jpg"
+      },
+      {
+        "name": "Street Fighter II",
+        "cat": "SIGNATURE ROLLS",
+        "ings": ["Snow crab mix", "Cucumber", "Cilantro", "Seven-spice tuna", "Jalapeños", "Garlic ponzu", "Sushi rice"],
+        "alg": [{"a": "Gluten", "s": "Garlic ponzu"}, {"a": "Egg", "s": "Snow crab mix"}, {"a": "Soy", "s": "Garlic ponzu, snow crab mix* (mix contains soybean oil — confirm with guest)"}, {"a": "Fish", "s": "Seven-spice tuna"}, {"a": "Shellfish", "s": "Snow crab mix"}, {"a": "Citrus", "s": "Garlic ponzu, seven-spice tuna"}, {"a": "Nightshade", "s": "Jalapeños, seven-spice tuna"}, {"a": "Rice", "s": "Sushi rice"}, {"a": "Sesame", "s": "Seven-spice tuna"}, {"a": "Garlic", "s": "Garlic ponzu"}, {"a": "Rapeseed", "s": "Snow crab mix* (mix contains canola oil — confirm with guest)"}, {"a": "Ginger", "s": "Pickled ginger, seven-spice tuna"}, {"a": "Cilantro", "s": "Cilantro"}],
+        "pair": {"w": "Off-dry German Riesling — natural sugar cools the heat from the jalapeño and seven-spice tuna; high acidity balances the rich snow crab mix and matches the citrus in the garlic ponzu without distracting from the fresh cilantro and jalapeño.", "r": "Pinot Noir — low tannins are essential (heavy tannins clash with seafood and make jalapeño heat taste bitter); high acidity and red fruit cut through the rich snow crab mix and match the savory garlic ponzu without overpowering the tuna and cilantro.", "s": "Junmai Ginjo — fruit and floral aromas complement the cilantro and cucumber without being overly sweet; natural umami balances the seven-spice tuna and garlic ponzu, and its clean finish cuts the rich snow crab mix and cleanses the palate after the jalapeño heat."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/uvwPs54w2YLE89InwuR_JVo3BYDZSHQiSqxzjmcQbKQ/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/030da938-df0c-4df6-8cb7-c41086288c85.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/MKGkspR9r8JWSRsp_CtmdWqALXZWYHWjHxB4YigwDJU/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/030da938-df0c-4df6-8cb7-c41086288c85.jpg"
+      },
+      {
+        "name": "Ladybug Samba",
+        "cat": "SIGNATURE ROLLS",
+        "ings": ["Salmon karaage", "Basil", "Cilantro", "Tomato", "Avocado", "Habanero masago", "Jalapeno citrus sauce (contains truffle)", "Sushi rice"],
+        "alg": [{"a": "Gluten", "s": "Salmon karaage, jalapeno citrus sauce, habanero masago"}, {"a": "Soy", "s": "Tempura batter* (contains soy lecithin), jalapeno citrus sauce"}, {"a": "Fish", "s": "Salmon karaage, red masago"}, {"a": "Nightshade", "s": "Tomato, jalapeno citrus sauce, red masago"}, {"a": "Rice", "s": "Sushi rice"}, {"a": "Corn", "s": "Salmon karaage"}, {"a": "Garlic", "s": "Jalapeno citrus sauce"}, {"a": "Citrus", "s": "Jalapeno citrus sauce"}, {"a": "Rapeseed", "s": "Jalapeno citrus sauce"}, {"a": "Ginger", "s": "Jalapeno citrus sauce, pickled ginger"}, {"a": "Avocado", "s": "Avocado"}, {"a": "Cilantro", "s": "Cilantro"}],
+        "pair": {"w": "Crisp, high-acid white or rosé, or sparkling — effervescence cuts through fried batter and fatty fish; citrus notes complement savory sauces and vinegared rice.", "r": "Pinot Noir or a juicy low-tannin red blend, slightly chilled — cuts through oily fried texture and complements rich fish and rice.", "s": "Junmai Ginjo or Tokubetsu Junmai — refreshing acidity balances oily batter and rich salmon; cleanses the palate without overwhelming raw herbs."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/g3g9dFkn7fZn_lzXYpEqQ1Cj5T8AfLl5Obc1-ZaDFPQ/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/6960e44e-eda7-4bd6-8dd8-a2b8b974cb7c.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/OCDaWYa5dXFuuEYYpo8dFBP5t5424-LFKJygeTrfh3A/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/6960e44e-eda7-4bd6-8dd8-a2b8b974cb7c.jpg"
+      },
+      {
+        "name": "Tres Diablos",
+        "cat": "SIGNATURE ROLLS",
+        "ings": ["Spicy tuna", "Cucumber", "Cilantro", "Tuna", "Atlantic salmon", "Yellowtail", "Tobiko", "Red masago", "Scallion", "Sushi rice", "Strawberry habanero sauce"],
+        "alg": [{"a": "Egg", "s": "Spicy tuna"}, {"a": "Soy", "s": "Spicy tuna"}, {"a": "Fish", "s": "Spicy tuna, hamachi, salmon, tuna, tobiko, red masago"}, {"a": "Nightshade", "s": "Spicy tuna, strawberry habanero sauce, red masago"}, {"a": "Rice", "s": "Sushi rice"}, {"a": "Corn", "s": "Strawberry habanero sauce"}, {"a": "Garlic", "s": "Spicy tuna"}, {"a": "Cilantro", "s": "Cilantro"}],
+        "pair": {"w": "Off-dry Riesling or Sauvignon Blanc — residual sugar and high acidity balance chili heat and spicy mayo richness while enhancing fish umami.", "r": "Pinot Noir or lighter red blend, slightly chilled — bright fruity flavors pair with creamy tuna and heat without clashing with raw fish.", "s": "Nigori or sparkling sake — nigori's gentle sweetness and creamy texture tame the heat; sparkling sake's carbonation cleanses the palate between spicy bites."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/vKbU1gVO-ZO49_-0Yi88-g22oCy8VNAavkFYuKor8y0/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/1ef99597-c07d-4957-bae9-91184637726e.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/DxeupK1i4lstTxWsaZVqlE2NcpDj4UN1nG9M9GU7sHE/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/1ef99597-c07d-4957-bae9-91184637726e.jpg"
+      },
+      {
+        "name": "Madrid Moon",
+        "cat": "SIGNATURE ROLLS",
+        "ings": ["Spicy yellowtail", "Cucumber", "Cilantro", "Seared spicy crab mix", "Black tobiko", "Scallions", "Jalapeno citrus sauce (contains truffle)", "Sushi rice"],
+        "alg": [{"a": "Gluten", "s": "Black tobiko, jalapeno citrus sauce"}, {"a": "Egg", "s": "Spicy yellowtail, seared spicy crab mix"}, {"a": "Soy", "s": "Spicy yellowtail* and seared spicy crab mix* (mixes contain soybean & canola oil — confirm with guest), jalapeno citrus sauce"}, {"a": "Fish", "s": "Spicy yellowtail, black tobiko"}, {"a": "Shellfish", "s": "Seared spicy crab mix"}, {"a": "Citrus", "s": "Jalapeno citrus sauce"}, {"a": "Nightshade", "s": "Spicy yellowtail, jalapeno citrus sauce, seared spicy crab mix"}, {"a": "Onion", "s": "Scallions"}, {"a": "Rice", "s": "Sushi rice"}, {"a": "Garlic", "s": "Jalapeno citrus sauce"}, {"a": "Rapeseed", "s": "Jalapeno citrus sauce, spicy yellowtail, seared spicy crab mix"}, {"a": "Ginger", "s": "Jalapeno citrus sauce, pickled ginger"}, {"a": "Cilantro", "s": "Cilantro"}],
+        "pair": {"w": "Off-dry Riesling or Albariño — balances the rich, buttery fish while cutting through the creamy spicy mayo and cooling the heat.", "r": "Pinot Noir or lighter red blend, slightly chilled — light and low-tannin; bright fruity flavors pair with the creamy yellowtail and the heat.", "s": "Nigori or sparkling sake — nigori's gentle sweetness and creamy texture tone down the heat; sparkling sake's carbonation cleanses the palate between spicy bites."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/Vg1KBEOf4o5sUAugQe217FWFPppP6DqoDBeLKZ4TuLM/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/0cc35994-6d10-4ebb-8dd3-69ca2f558a88.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/iganXgFJ_-Hz3tYjuvUwe0PQpYQ0vi4cmT2JHDUpydk/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/0cc35994-6d10-4ebb-8dd3-69ca2f558a88.jpg"
+      },
+      {
+        "name": "Legend",
+        "cat": "SIGNATURE ROLLS",
+        "ings": ["Shrimp tempura", "Cucumber", "Seared scallop & snow crab mix", "Black tobiko", "Tobiko", "Soy glaze", "Sushi rice"],
+        "alg": [{"a": "Gluten", "s": "Shrimp tempura, black tobiko, tobiko, soy glaze"}, {"a": "Egg", "s": "Seared scallop/crab mix"}, {"a": "Soy", "s": "Shrimp tempura* and scallop/snow crab mix* (mix & shrimp tempura contain soybean oil — confirm with guest), soy glaze"}, {"a": "Fish", "s": "Tobiko, black tobiko"}, {"a": "Shellfish", "s": "Seared scallop/crab mix, shrimp tempura"}, {"a": "Shrimp", "s": "Shrimp tempura"}, {"a": "Onion", "s": "Soy glaze"}, {"a": "Rice", "s": "Sushi rice"}, {"a": "Corn", "s": "Soy glaze"}, {"a": "Rapeseed", "s": "Seared scallop/snow crab mix* (canola oil in mayo — confirm with guest)"}, {"a": "Ginger", "s": "Soy glaze, pickled ginger"}],
+        "pair": {"w": "Sauvignon Blanc, Albariño, or Pinot Grigio — crisp, light-bodied, high acid; complements the creamy, sweet crab/scallop mix while cleansing the palate of the soy glaze between bites.", "r": "Pinot Noir or a lighter red blend, slightly chilled — light and low-tannin; won't clash with the delicate shellfish, and the acid helps clean the palate between bites.", "s": "Junmai Ginjo — bright, slightly sweet, fruity profile that cuts through the creamy mayo-based shellfish mix, while its light acid brings the whole roll together."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/jfWxo64H82v1eCGz4IDOoQotIO441iQoSBm1tVjEImk/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/97a06ba2-d079-46a0-a482-687f90ad029c.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/xX_3GL-nunfKFQKRUvJhMmJrr8VsnPar4SJ1v4pyRpU/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/97a06ba2-d079-46a0-a482-687f90ad029c.jpg"
+      },
+      {
+        "name": "Ultimate Dragon",
+        "cat": "SIGNATURE ROLLS",
+        "ings": ["Snow crab mix", "Avocado", "Cucumber", "Freshwater eel (unagi)", "Black tobiko", "Soy glaze", "Sesame", "Pickled ginger", "Sushi rice"],
+        "alg": [{"a": "Gluten", "s": "Soy glaze, black tobiko, unagi"}, {"a": "Avocado", "s": "Avocado"}, {"a": "Egg", "s": "Snow crab mix* (egg in the mayo)"}, {"a": "Soy", "s": "Unagi, soy glaze, snow crab mix* (contains soybean oil — confirm with guest)"}, {"a": "Fish", "s": "Unagi, black tobiko"}, {"a": "Shellfish", "s": "Snow crab mix"}, {"a": "Onion", "s": "Soy glaze"}, {"a": "Rice", "s": "Sushi rice"}, {"a": "Corn", "s": "Soy glaze, unagi"}, {"a": "Sesame", "s": "Sesame seed"}, {"a": "Rapeseed", "s": "Snow crab mix* (contains canola oil — confirm with guest)"}, {"a": "Ginger", "s": "Soy glaze, pickled ginger"}],
+        "pair": {"w": "Off-dry Riesling or mineral-heavy Albariño — bold acid and a touch of sugar match the fatty eel and sweet soy glaze and clear the palate.", "r": "Pinot Noir slightly chilled or a fruity Merlot — low tannin won't clash with the eel or create a metallic taste.", "s": "Full-bodied Junmai, umami-rich Yamahai, or creamy Nigori — slightly sweet and a touch funky, they stand up to the rich eel."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/6_JfDPVKPJMzPL6NiQukZeScSuFhy-vqXdlnwYmLBic/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/8224aeb5-2b53-451e-8467-f823bf64ab89.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/EhjSkMCFZwLw2NSjgdppJZK1cjhVST4kk2a_zs3JwYw/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/8224aeb5-2b53-451e-8467-f823bf64ab89.jpg"
+      },
+      {
+        "name": "Union",
+        "cat": "SIGNATURE ROLLS",
+        "ings": ["Shrimp tempura", "Cucumber", "Spicy tuna", "Spicy mayo", "Scallions", "Soy glaze", "Tempura flakes", "Sushi rice"],
+        "alg": [{"a": "Gluten", "s": "Soy glaze, shrimp tempura, tempura flakes"}, {"a": "Egg", "s": "Spicy tuna*, spicy mayo* (egg in the mayo)"}, {"a": "Soy", "s": "Shrimp tempura, tempura flakes, soy glaze, spicy tuna*, spicy mayo* (mayo contains soybean oil — confirm with guest)"}, {"a": "Fish", "s": "Spicy tuna"}, {"a": "Shellfish", "s": "Shrimp tempura"}, {"a": "Shrimp", "s": "Shrimp tempura"}, {"a": "Nightshade", "s": "Spicy tuna, spicy mayo"}, {"a": "Onion", "s": "Soy glaze, scallions"}, {"a": "Rice", "s": "Sushi rice"}, {"a": "Corn", "s": "Soy glaze, tempura flakes, shrimp tempura"}, {"a": "Garlic", "s": "Spicy tuna, spicy mayo"}, {"a": "Rapeseed", "s": "Spicy tuna*, spicy mayo* (mayo contains canola oil — confirm with guest)"}, {"a": "Ginger", "s": "Soy glaze, pickled ginger"}],
+        "pair": {"w": "Off-dry Riesling or Albariño — balances the rich fish, cuts the creamy spicy mayo and cools the heat.", "r": "Pinot Noir or a lighter red blend, slightly chilled — low tannin, bright fruit pairs with the creamy tuna and heat.", "s": "Nigori or sparkling sake — nigori's sweetness and creaminess tone down the heat; bubbles cleanse between spicy bites."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/yeZDkBwk0NJufVJ1R4-4PLHlqsyBBjz_GL0yttJ2Kpc/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/5cbb9d8c-5e85-480c-9626-c4f1a7a272e6.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/818FmM_uFgT_zymcPPson2n20R8RfZOKE_D-zFfik_o/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/5cbb9d8c-5e85-480c-9626-c4f1a7a272e6.jpg"
+      },
+      {
+        "name": "Love Hunter",
+        "cat": "SIGNATURE ROLLS",
+        "ings": ["Snow crab legs", "Mango", "Shibazuke", "Cilantro", "Yellowfin tuna", "Avocado", "Fried garlic chili paste", "Tomato habanero jalapeño citrus (contains truffle)", "Sushi rice"],
+        "alg": [{"a": "Gluten", "s": "Shibazuke, garlic chili paste"}, {"a": "Avocado", "s": "Avocado, tomato habanero jalapeño citrus"}, {"a": "Cilantro", "s": "Cilantro"}, {"a": "Soy", "s": "Garlic chili paste, tomato habanero jalapeño citrus"}, {"a": "Fish", "s": "Yellowfin tuna"}, {"a": "Shellfish", "s": "Snow crab"}, {"a": "Citrus", "s": "Shibazuke, tomato habanero jalapeño citrus"}, {"a": "Nightshade", "s": "Shibazuke, garlic chili paste, tomato habanero jalapeño citrus"}, {"a": "Onion", "s": "Garlic chili paste"}, {"a": "Rice", "s": "Sushi rice, garlic chili paste"}, {"a": "Corn", "s": "Garlic chili paste, shibazuke"}, {"a": "Sesame", "s": "Garlic chili paste"}, {"a": "Garlic", "s": "Garlic chili paste, tomato habanero jalapeño citrus"}, {"a": "Rapeseed", "s": "Tomato habanero jalapeño citrus"}, {"a": "Ginger", "s": "Shibazuke"}],
+        "pair": {"w": "Crisp, high-acid white, rosé or bubbly — acidity and bubbles cut the avocado and tuna; citrus notes complement the spicy sauces and rice.", "r": "Pinot Noir or a juicy low-tannin red blend — cuts through the sauce-heavy roll without tannins clashing with the fish.", "s": "Aromatic, crisp Junmai Ginjo or Tokubetsu Junmai — refreshing acidity balances heavy sauces and tuna without overwhelming the mango and pickles."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/uw7Ff-ZMa-xvgz-VguEhKToaGgxfsLAyZLJgue6pIYU/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/3fa95792-118c-4433-8044-79f5d41f8ba1.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/qGzBL57eVy_hC_8tOrXsE2NH2ixOtmw6YR42GH42pIM/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/3fa95792-118c-4433-8044-79f5d41f8ba1.jpg"
+      },
+      {
+        "name": "Spanish Lover",
+        "cat": "SIGNATURE ROLLS",
+        "ings": ["Snow crab mix", "Creamy scallop mix", "Avocado", "Cilantro", "Seared Red King salmon", "Cayenne pepper", "Black tobiko", "Chili oil", "Cilantro aioli", "Sushi rice"],
+        "alg": [{"a": "Gluten", "s": "Black tobiko, chili oil"}, {"a": "Avocado", "s": "Avocado"}, {"a": "Cilantro", "s": "Cilantro, cilantro aioli"}, {"a": "Egg", "s": "Snow crab mix, creamy scallop mix, cilantro aioli"}, {"a": "Soy", "s": "Chili oil, snow crab mix*, creamy scallop mix*, cilantro aioli* (contain soybean oil — confirm with guest)"}, {"a": "Fish", "s": "Black tobiko, seared Red King salmon"}, {"a": "Shellfish", "s": "Snow crab mix, creamy scallop mix"}, {"a": "Nightshade", "s": "Chili oil, cayenne pepper"}, {"a": "Onion", "s": "Chili oil"}, {"a": "Rice", "s": "Sushi rice, chili oil"}, {"a": "Corn", "s": "Chili oil"}, {"a": "Sesame", "s": "Chili oil"}, {"a": "Garlic", "s": "Chili oil"}, {"a": "Rapeseed", "s": "Snow crab mix, creamy scallop mix, chili oil, cilantro aioli"}, {"a": "Ginger", "s": "Pickled ginger"}],
+        "pair": {"w": "Crisp, high-acid Sauvignon Blanc or dry Riesling — balances the sweet crab/scallop and the rich salmon and aioli without tasting heavy.", "r": "Pinot Noir or a fruity red blend — bright acidity cuts the creamy sauce and fish oils. Avoid high-tannin reds (metallic with fish).", "s": "Medium-bodied Junmai Ginjo or crisp dry Honjozo — enough structure and acidity to cut the fatty salmon and creamy mixes."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/TAGlAApCLu3AzHDa5Aqsi_7nxNQ1YX1kFrhnY4rBW7E/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/89e4b0aa-5e3b-45ec-a9e8-0c0632d3793e.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/ZFPmUP3BAVPbGrcW37NpHDUxSazBQ3RlnbLQWlx81nY/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/89e4b0aa-5e3b-45ec-a9e8-0c0632d3793e.jpg"
+      },
+      {
+        "name": "Sweet Kiss",
+        "cat": "SIGNATURE ROLLS",
+        "ings": ["Shrimp tempura", "Snow crab mix", "Cilantro", "Seared Atlantic salmon", "Tobiko", "Sweet chili jalapeño citrus sauce", "Sushi rice"],
+        "alg": [{"a": "Gluten", "s": "Shrimp tempura, tobiko, sweet chili jalapeño citrus"}, {"a": "Cilantro", "s": "Cilantro"}, {"a": "Egg", "s": "Snow crab mix"}, {"a": "Soy", "s": "Shrimp tempura, snow crab mix*, sweet chili jalapeño citrus sauce* (contain soybean oil — confirm with guest)"}, {"a": "Fish", "s": "Seared Atlantic salmon, tobiko"}, {"a": "Shellfish", "s": "Shrimp tempura, snow crab mix"}, {"a": "Shrimp", "s": "Shrimp tempura"}, {"a": "Citrus", "s": "Sweet chili jalapeño citrus"}, {"a": "Nightshade", "s": "Sweet chili jalapeño citrus sauce"}, {"a": "Rice", "s": "Sushi rice"}, {"a": "Corn", "s": "Shrimp tempura"}, {"a": "Garlic", "s": "Sweet chili jalapeño citrus"}, {"a": "Rapeseed", "s": "Snow crab mix*, sweet chili jalapeño citrus* (contain canola oil — confirm with guest)"}, {"a": "Ginger", "s": "Pickled ginger"}],
+        "pair": {"w": "Crisp Albariño or dry Riesling — acidity and slight sweetness balance the sweet crab and the rich salmon and fried shrimp.", "r": "Pinot Noir or a fruity red blend — bright acidity cuts the creamy crab mix and oils. Avoid high-tannin reds (metallic with fish).", "s": "Junmai Ginjo or crisp semi-sweet sparkling sake — matches the citrus acidity and soothes the heat (a Daiginjo gets overwhelmed)."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/tNc9_rUkCl-CKl9d3ywSPWY8P4H1FCOKugoDogrwdrE/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/c3762740-4f03-45e8-9508-156daf1a04a2.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/OfNXakJSyJlNnrdAd_Q9A27qVvb0MaUFZvm77uR7vqE/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/c3762740-4f03-45e8-9508-156daf1a04a2.jpg"
+      },
+      {
+        "name": "Casanova",
+        "cat": "SIGNATURE ROLLS",
+        "ings": ["Snow crab legs", "Avocado", "Shibazuke", "Seared spicy snow crab mix", "Scallop mix", "Soy glaze", "Pico de gallo", "Sushi rice"],
+        "alg": [{"a": "Gluten", "s": "Shibazuke"}, {"a": "Avocado", "s": "Avocado"}, {"a": "Cilantro", "s": "Pico de gallo"}, {"a": "Egg", "s": "Spicy snow crab mix, scallop mix"}, {"a": "Soy", "s": "Scallop mix*, spicy snow crab mix* (contain soybean oil — confirm with guest)"}, {"a": "Shellfish", "s": "Snow crab legs, snow crab mix, scallop mix"}, {"a": "Citrus", "s": "Shibazuke, pico de gallo"}, {"a": "Nightshade", "s": "Shibazuke, spicy crab mix, pico de gallo"}, {"a": "Onion", "s": "Soy glaze, pico de gallo"}, {"a": "Rice", "s": "Sushi rice"}, {"a": "Corn", "s": "Shibazuke, soy glaze"}, {"a": "Rapeseed", "s": "Snow crab mix*, scallop mix* (contain canola oil — confirm with guest)"}, {"a": "Ginger", "s": "Pickled ginger, soy glaze"}],
+        "pair": {"w": "Riesling or dry sparkling — Riesling's sugar tames the spicy crab and its acid cuts the avocado and soy glaze; bubbles cleanse the palate. Avoid oaked Chardonnay.", "r": "Pinot Noir or a low-tannin fruity red blend — acidity cuts the avocado and spicy crab and complements the pico and shibazuke. Avoid Cabernet.", "s": "Dry Junmai Ginjo or Taruzake — clean, light and structured to cleanse the palate; a floral Daiginjo would clash with the pico and spicy crab."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/u1wxUmf4EXT0Rrj80Iz7jilzyFzIye2BhceklKSjSt8/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/c1c2ca8b-1bcf-42e4-8099-ca302fcac6da.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/rtus1Vuy7PoY-suGu_5ozjiowD6hffZDnxGnfxCpMlM/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/c1c2ca8b-1bcf-42e4-8099-ca302fcac6da.jpg"
+      },
+      {
+        "name": "Mexican Ninja",
+        "cat": "SIGNATURE ROLLS",
+        "ings": ["Spicy tuna", "Cucumber", "Shrimp", "Tuna", "Salmon", "Yellowtail", "Scallion", "Garlic ponzu", "Sushi rice"],
+        "alg": [{"a": "Gluten", "s": "Garlic ponzu"}, {"a": "Egg", "s": "Spicy tuna mix"}, {"a": "Soy", "s": "Garlic ponzu, spicy tuna mix* (contains soybean oil — confirm with guest)"}, {"a": "Fish", "s": "Spicy tuna, tuna, yellowtail, salmon"}, {"a": "Shellfish", "s": "Shrimp"}, {"a": "Shrimp", "s": "Shrimp"}, {"a": "Citrus", "s": "Garlic ponzu"}, {"a": "Nightshade", "s": "Spicy tuna"}, {"a": "Onion", "s": "Scallion"}, {"a": "Rice", "s": "Sushi rice"}, {"a": "Garlic", "s": "Garlic ponzu, spicy tuna mix"}, {"a": "Rapeseed", "s": "Spicy tuna mix* (contains canola oil — confirm with guest)"}, {"a": "Ginger", "s": "Pickled ginger"}],
+        "pair": {"w": "Riesling or dry sparkling — Riesling's residual sugar tames the spicy tuna heat while its acidity cuts the fatty fish and garlic ponzu; bubbles cleanse the palate. Avoid oaked Chardonnay (gets overwhelmed).", "r": "Pinot Noir or a low-tannin fruity red blend — acidity cuts the rich spicy tuna and bold ponzu. Avoid high-tannin reds like Cabernet (metallic with fish).", "s": "Junmai Ginjo (light, crisp, green apple/melon notes, clean finish) or off-dry Nigori — creamy texture cools the spicy tuna heat and brings out the sweetness of the raw fish and shrimp."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/HlaElgasI2HcI4sFrkmP-65oKnQCi2Zu3k90Ppa48XE/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/b05a4cd6-3d77-4031-bf89-383dd9b356b7.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/ahI4YVConatyei4oHc1oYdwkbfIqBoVymWsno6TOlpo/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/b05a4cd6-3d77-4031-bf89-383dd9b356b7.jpg"
+      },
+      {
+        "name": "Scorpio Sting",
+        "cat": "SIGNATURE ROLLS",
+        "ings": ["Salmon", "Avocado", "Cucumber", "Mango", "Cilantro", "Seared Atlantic salmon", "Pico de gallo", "Habanero chili glaze", "Sushi rice"],
+        "alg": [{"a": "Avocado", "s": "Avocado"}, {"a": "Cilantro", "s": "Cilantro, pico de gallo"}, {"a": "Fish", "s": "Atlantic salmon, seared Atlantic salmon"}, {"a": "Stone fruit", "s": "Mango"}, {"a": "Nightshade", "s": "Pico de gallo, habanero chili glaze"}, {"a": "Rice", "s": "Sushi rice"}, {"a": "Garlic", "s": "Habanero chili glaze"}, {"a": "Ginger", "s": "Pickled ginger"}],
+        "pair": {"w": "Off-dry Riesling or Sauvignon Blanc — Riesling's lower alcohol and touch of residual sugar soothe the habanero glaze while its stone-fruit flavors match the mango; Sauvignon Blanc is the dry option — herbaceous notes mirror the cilantro, cucumber, and pico de gallo, and its citrus cuts the fatty seared salmon and avocado.", "r": "Chilled Pinot Noir — low tannins are critical (heavy tannins clash with the salmon's oils and turn the habanero heat bitter); light body and high acid cut the rich salmon and avocado, and bright red berry flavors complement the mango and pico de gallo.", "s": "Junmai Daiginjo — highly refined and aromatic, with ripe melon and peach notes that elevate the mango and pico de gallo; clean, light-bodied texture cuts the rich oils of the seared salmon and avocado while softening the sting of the habanero glaze."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/pivuPityRZ92Z5ZMfrbnFfD4Ux8oUl9GigSxOr03TU8/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/63379b0d-0a01-4cdf-ad71-00a5dd911373.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/nW4WCN5MFOREYbDLRAVgRpwVsJYMRC_brnms8cMzpi4/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/63379b0d-0a01-4cdf-ad71-00a5dd911373.jpg"
+      },
+      {
+        "name": "Skin on Skin",
+        "cat": "SIGNATURE ROLLS",
+        "ings": ["Togarashi salmon skin", "Cucumber", "Atlantic salmon", "Scallion", "Soy glaze", "Sushi rice"],
+        "alg": [{"a": "Gluten", "s": "Soy glaze"}, {"a": "Soy", "s": "Soy glaze"}, {"a": "Fish", "s": "Togarashi salmon skin, Atlantic salmon"}, {"a": "Citrus", "s": "Togarashi salmon skin, soy glaze"}, {"a": "Nightshade", "s": "Togarashi salmon skin"}, {"a": "Onion", "s": "Soy glaze, scallions"}, {"a": "Rice", "s": "Sushi rice"}, {"a": "Corn", "s": "Soy glaze"}, {"a": "Sesame", "s": "Togarashi salmon skin"}, {"a": "Ginger", "s": "Soy glaze, togarashi salmon skin"}],
+        "pair": {"w": "Off-dry to dry sparkling wine — effervescence scrubs the rich, oily fried salmon skin and fatty Atlantic salmon off the palate; the yeasty notes of traditional-method sparklers create an umami synergy with the sweet soy glaze.", "r": "Pinot Noir — ripe cherry and cranberry fruit gives a sweet-and-tart contrast that mirrors the soy glaze and softens the togarashi burn; high natural acidity acts as a palate cleanser, cutting through the heavy, oily salmon and salmon skin.", "s": "Nigori — creamy texture and gentle sweetness tame the togarashi heat, mirror the soy glaze and have enough body for the oily fried salmon skin. Alternative: a rich, high-acid Junmai — savory depth bridges the Atlantic salmon and soy glaze into an umami bomb and handles the scallions' vegetal spice."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/0mcgoUe5vp5WcoaUi7EsUjR-TLspDv5_loxmy3eaQhI/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/a0e8681c-4b70-42e9-b2bc-2e9c5c4b1b37.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/CIiX4L1sp7akkdDyUbcZ80VYVKo5BVO-u8GYnxhG-Uk/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/a0e8681c-4b70-42e9-b2bc-2e9c5c4b1b37.jpg"
+      },
+      {
+        "name": "Sweet Seduction",
+        "cat": "SIGNATURE ROLLS",
+        "ings": ["Snow crab mix", "Cucumber", "Freshwater eel (unagi)", "Coconut mango glaze", "Soy glaze", "Scallion", "Pickled ginger", "Sushi rice"],
+        "alg": [{"a": "Gluten", "s": "Soy glaze, unagi"}, {"a": "Egg", "s": "Snow crab mix* (egg in the mayo)"}, {"a": "Soy", "s": "Unagi, soy glaze, snow crab mix* (mix contains soybean oil — confirm with guest)"}, {"a": "Fish", "s": "Unagi"}, {"a": "Shellfish", "s": "Snow crab mix"}, {"a": "Stone fruit", "s": "Coconut mango glaze"}, {"a": "Onion", "s": "Soy glaze, scallion"}, {"a": "Rice", "s": "Sushi rice, unagi"}, {"a": "Corn", "s": "Soy glaze, unagi"}, {"a": "Rapeseed", "s": "Snow crab mix* (mix contains canola oil — confirm with guest)"}, {"a": "Dairy", "s": "Coconut mango glaze"}, {"a": "Ginger", "s": "Soy glaze, pickled ginger"}, {"a": "Legumes", "s": "Coconut mango glaze"}, {"a": "Nuts/Tree nuts", "s": "Coconut mango glaze* (coconut is a tree nut — confirm with guest)"}],
+        "pair": {"w": "Off-dry Riesling or Chenin Blanc (not bone dry) — a touch of residual sugar matches the sweet mango-coconut and soy glazes so the wine doesn't taste bitter; high acidity cuts through the fatty eel and rich snow crab mix, balancing the palate between bites.", "r": "Pinot Noir — high acidity and low tannins cut through the fatty, sweet eel without a bitter, metallic taste. Or a fruity Merlot (lower-tannin, un-oaked) — plum and berry flavors complement the sweet soy and mango-coconut glazes without overpowering the delicate snow crab.", "s": "Junmai Daiginjo — clean, fruity fragrance mirrors the tropical mango-coconut glaze and keeps the delicate snow crab from being overwhelmed. Alternative: a slightly sweet Namasake — vibrant, viscous texture and natural sweetness bridge the heavy soy glaze and handle the rich grilled eel. Avoid a koji-forward nama (funky tones overwhelm the roll's sweetness)."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/8c5VtifVjiJI2fU3TjxSCgPLT-Bw7SGlhUD-8VOMpVE/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/36a3e87b-ae8a-4e00-a4b0-927d17535301.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/bRrgvR7gInbPOCt1QVdvhATGnomkwSZZANrSUGjr-k4/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/36a3e87b-ae8a-4e00-a4b0-927d17535301.jpg"
+      },
+      {
+        "name": "Last Samurai",
+        "cat": "SIGNATURE ROLLS",
+        "ings": ["Spicy yellowtail", "Cucumber", "Albacore", "White onion", "Scallion", "Cilantro", "Cayenne", "Yuzu citrus sauce", "Pickled ginger", "Sushi rice"],
+        "alg": [{"a": "Gluten", "s": "Yuzu citrus sauce"}, {"a": "Egg", "s": "Spicy yellowtail mix* (egg in the mayo)"}, {"a": "Soy", "s": "Yuzu citrus sauce, spicy yellowtail* (mix contains soybean oil — confirm with guest)"}, {"a": "Fish", "s": "Spicy yellowtail, albacore"}, {"a": "Citrus", "s": "Yuzu citrus sauce"}, {"a": "Nightshade", "s": "Spicy yellowtail, cayenne pepper"}, {"a": "Onion", "s": "White onion, scallion"}, {"a": "Rice", "s": "Sushi rice"}, {"a": "Rapeseed", "s": "Spicy yellowtail mix* (mix contains canola oil — confirm with guest)"}, {"a": "Ginger", "s": "Pickled ginger"}, {"a": "Cilantro", "s": "Cilantro"}],
+        "pair": {"w": "Albariño or Sauvignon Blanc (unoaked) — high acidity mirrors the bright yuzu citrus sauce and cuts the richness of the yellowtail and albacore; Albariño's ocean salinity and stone-fruit notes enhance the fish and soften the cayenne kick, while Sauvignon Blanc's herbal-citrus notes pair with the cilantro, scallion, white onion and cucumber.", "r": "Pinot Noir — light body and low tannins won't clash with the raw yellowtail and albacore; high acidity matches the yuzu citrus sauce, earthy notes balance the white onion, scallion and cilantro, and its fruit and moderate alcohol keep the cayenne heat in check.", "s": "Junmai Ginjo or Junmai Daiginjo — both cleanse the palate between bites of yellowtail and albacore without clashing with the yuzu. Junmai Ginjo's light fruit and crisp finish cool the cayenne heat and balance the onion, scallion and cilantro; Junmai Daiginjo's cleaner, lighter profile lets the fish, cucumber and bright yuzu dressing stand out."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/qseqDHuCZXk7l2lDA0EDzZjOYcplMizhP2-QB9HRwHQ/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/1cdc5c89-90eb-45bf-b0a8-c9c5b27924ed.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/mjSssz9DbYwz7woREeGpoqra3W5LANFR1ZuP-GzPWnY/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/1cdc5c89-90eb-45bf-b0a8-c9c5b27924ed.jpg"
+      }
+    ]
+  },
+
+  "es": {
+    "ui": {
+      "sub": "Guía de Alérgenos · Referencia del Mesero", "placeholder": "Busca alérgeno, ingrediente o platillo…", "modeC": "Contiene el alérgeno", "modeA": "Libre del alérgeno", "hint0": "Toca un alérgeno o escribe para buscar. «Libre del alérgeno» muestra platillos que puedes ofrecer a un cliente con esa alergia.", "hintC": "Mostrando platillos que CONTIENEN lo que buscas.", "hintA": "Mostrando platillos SEGUROS para un cliente con esa alergia. ⚠ = solo riesgo de contacto cruzado.", "of": "de", "dishesW": "platillos", "contain": "contienen", "freeOf": "están libres de", "avoidNote": " (⚠ = solo contacto cruzado — confírmalo con cocina)", "count0": "platillos · toca una tarjeta para ver ingredientes, alérgenos y maridajes", "badgeC": "Contiene", "badgeS": "✓ Seguro", "badgeW": "⚠ Contacto cruzado", "cc": "⚠ contacto cruzado", "noteA1": "⚠ Sin alérgeno directo, pero hay ", "noteA2": "riesgo de contacto cruzado", "noteA3": " (freidora/plancha compartida). Confírmalo con el cliente y la cocina.", "ing": "Ingredientes", "alg": "Alérgenos", "pairT": "Maridajes — Venta Sugerida", "w": "Blanco", "r": "Tinto", "sk": "Sake", "e1": "No hay platillos totalmente seguros", "e1b": "Todos los platillos contienen este alérgeno o tienen riesgo de contacto cruzado. Consulta modificaciones con la cocina.", "e2": "Sin resultados", "e2b": "Prueba con otra palabra o toca un chip de alérgeno arriba.", "ft1": "⚠ Siempre confirma con la cocina / el chef antes de garantizar que un platillo es seguro para una alergia.", "ft2": "Las alertas de contacto cruzado (freidora o plancha compartida) indican posibles trazas — confírmalo con el cliente y la cocina. Fuente: publicaciones semanales de conocimiento de Patrick, feb–jun 2026. El menú cambia; verifica contra el menú vigente.", "title": "Japonessa · Guía de Alérgenos"
+    }, 
+    "cats": ["KITCHEN", "BARRA FRÍA", "ROLLOS ESPECIALES"], 
+    "dishes": [
+      {
+        "name": "Seaweed Salad", 
+        "cat": "KITCHEN", 
+        "ings": ["Mezcla de algas", "Ajonjolí", "Limón amarillo", "Vinagreta de miso"], 
+        "alg": [{"a": "Gluten", "s": "Mezcla de algas, vinagreta de miso"}, {"a": "Huevo", "s": "Vinagreta de miso"}, {"a": "Soya", "s": "Mezcla de algas, vinagreta de miso"}, {"a": "Hongos", "s": "Mezcla de algas — confírmalo con el cliente", "cc": true}, {"a": "Cítricos", "s": "Limón de guarnición"}, {"a": "Arroz", "s": "Vinagreta de miso"}, {"a": "Ajonjolí", "s": "Mezcla de algas, semillas de ajonjolí"}], 
+        "pair": {"w": "Sauvignon Blanc, Albariño o Riesling seco — frescos, ácidos y minerales.", "r": "Pinot Noir — ligero, ácido, taninos bajos, con notas terrosas.", "s": "Junmai o Junmai Ginjo seco y frío; un sake espumoso también va excelente."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/PhsyvrlXWLsoRDepDzuM3cfsX-uZOX-Jp7_r0lZ6u9A/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/e4671ade-9423-4716-96d4-28e0b82b3b72.jpg"
+      },       
+      {
+        "name": "Calamari Salad", 
+        "cat": "KITCHEN", 
+        "ings": ["Calamar frito", "Salsa de chile dulce", "Mezcla de lechugas", "Alioli de yuzu", "Tomates cherry", "Pepino", "Naranja en rodaja"], 
+        "alg": [{"a": "Gluten", "s": "Alioli de yuzu, salsa de chile dulce"}, {"a": "Soya", "s": "Alioli de yuzu, salsa de chile dulce"}, {"a": "Pescado", "s": "Alioli de yuzu"}, {"a": "Mariscos", "s": "Calamar"}, {"a": "Cítricos", "s": "Naranja en rodaja, alioli de yuzu"}, {"a": "Solanáceas", "s": "Salsa de chile dulce, tomates cherry"}, {"a": "Canola", "s": "Salsa de chile dulce, alioli de yuzu, calamar (el aceite de la freidora es canola)", "cc": true}, {"a": "Cebolla", "s": "Alioli de yuzu"}, {"a": "Arroz", "s": "Alioli de yuzu"}, {"a": "Ajonjolí", "s": "Salsa de chile dulce, alioli de yuzu"}, {"a": "Ajo", "s": "Salsa de chile dulce"}], 
+        "pair": {"w": "Pinot Grigio o Sauvignon Blanc; Prosecco para un contraste burbujeante.", "r": "Pinot Noir o rosado seco — ligeros y de taninos bajos, no opacan el calamar.", "s": "Junmai Ginjo seco (Dewazakura) o Yamahai Junmai terroso; nigori cremoso para el final."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/_LXPO61JyF2OkNBBpppsb9Mpmw2xoOQ8V0gbxayNse8/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/61d7af74-0f61-4c6b-8a07-7402015a5c0a.jpg"
+      }, 
+      {
+        "name": "Takoyaki", 
+        "cat": "KITCHEN", 
+        "ings": ["Bolita de takoyaki (pulpo)", "Mayonesa japonesa Kewpie", "Salsa takoyaki", "Jengibre rojo encurtido (kizami)", "Hojuelas de bonito"], 
+        "alg": [{"a": "Gluten", "s": "Bolita de takoyaki, salsa takoyaki"}, {"a": "Huevo", "s": "Bolita de takoyaki, mayonesa Kewpie"}, {"a": "Soya", "s": "Salsa takoyaki, mayonesa Kewpie (aceite de soya — la mayoría lo tolera, pero confírmalo con el cliente)", "cc": true}, {"a": "Pescado", "s": "Hojuelas de bonito"}, {"a": "Mariscos", "s": "Bolita de takoyaki (pulpo)"}, {"a": "Cítricos", "s": "Jengibre encurtido, salsa takoyaki"}, {"a": "Fruta de hueso", "s": "Salsa takoyaki"}, {"a": "Solanáceas", "s": "Salsa takoyaki"}, {"a": "Canola", "s": "Mayonesa Kewpie"}], 
+        "pair": {"w": "Sauvignon Blanc o Riesling seco — cortan el umami intenso; el dulzor del Riesling lo equilibra.", "r": "Mezcla tinta frutal o Pinot Noir — cuerpo ligero que equilibra todo el platillo.", "s": "Nama sake con cuerpo o Junmai — saben mejor al acercarse a temperatura ambiente."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/91AHTniIwAL46WMYPrJNl8H7g5tk9UU5_telKBN4Of4/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/70d301b3-b4f4-4338-88e0-b22cc608a195.jpg"
+      },
+      {
+        "name": "Agedashi Tofu", 
+        "cat": "KITCHEN", 
+        "ings": ["Tofu frito de textura media", "Cebollín", "Hojuelas de bonito", "Caldo dashi"], 
+        "alg": [{"a": "Gluten", "s": "Tofu frito en la misma freidora que productos con gluten", "cc": true}, {"a": "Soya", "s": "Tofu de textura media"}, {"a": "Pescado", "s": "Hojuelas de bonito, caldo dashi; frito en la misma freidora que pescado", "cc": true}, {"a": "Mariscos", "s": "Frito en la misma freidora que mariscos", "cc": true}, {"a": "Cebolla", "s": "Cebollín; frito en la misma freidora que productos con cebolla", "cc": true}, {"a": "Arroz", "s": "Frito en la misma freidora que productos con arroz", "cc": true}], 
+        "pair": {"w": "Espumosos (Cava, blanc de blancs, Champagne brut), Sauvignon Blanc o Riesling seco.", "r": "Pinot Noir suave de taninos bajos o mezcla tinta frutal semiseca.", "s": "Junmai Ginjo ligero y aromático o Junmai Daiginjo equilibrado."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/CuOAeI4ZClKuD9P6v4JPBV4WtfgwZ3w7xOy9iOLZvbg/resize:fit:1080:1080/plain/s3://toasttab/restaurants/restaurant-189440000000000000/menu/items/4/item-1100000000066961364_1722295991.jpg"
+      }, 
+      {
+        "name": "Garlic Short Ribs", 
+        "cat": "KITCHEN", 
+        "ings": ["Costillas de res marinadas", "Salsa teriyaki (contiene caldo de res)", "Ajonjolí", "Cebollín", "Naranja en rodaja", "Ajo"], 
+        "alg": [{"a": "Gluten", "s": "Costillas de res, salsa teriyaki"}, {"a": "Soya", "s": "Costillas, salsa teriyaki, aerosol de la parrilla"}, {"a": "Pescado", "s": "Asado en la misma plancha que pescado", "cc": true}, {"a": "Cítricos", "s": "Naranja de guarnición"}, {"a": "Cebolla", "s": "Salsa teriyaki, cebollín"}, {"a": "Arroz", "s": "Costillas (mirin y sake en el marinado)", "cc": true}, {"a": "Maíz", "s": "Salsa teriyaki"}, {"a": "Ajonjolí", "s": "Semillas de ajonjolí, costillas"}, {"a": "Ajo", "s": "Marinado de ajo (ingrediente estrella)"}], 
+        "pair": {"w": "Chardonnay con roble, Riesling seco o Albariño — la acidez corta la grasa y el ajo.", "r": "Syrah (notas de pimienta), Cabernet Sauvignon o Malbec — taninos que cortan la grasa.", "s": "Kimoto/Yamahai, Junmai o genshu sin diluir — robustos y de alta acidez."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/Q-asao4255uSKZKxdNZmMHwuQiJQAlZ2s9kxsvzQ3aQ/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/73d65677-cd82-4c84-8063-0a2f8cfa640c.jpg"
+      },
+      {
+        "name": "Ginger Chicken", 
+        "cat": "KITCHEN", 
+        "ings": ["Pollo frito", "Espinaca", "Cebolla amarilla", "Mantequilla", "Salsa picante de jengibre", "Ajonjolí", "Cebolla de cambray"], 
+        "alg": [{"a": "Gluten", "s": "Salsa picante de jengibre"}, {"a": "Soya", "s": "Salsa picante de jengibre"}, {"a": "Pescado", "s": "Salsa picante de jengibre"}, {"a": "Solanáceas", "s": "Salsa picante de jengibre"}, {"a": "Canola", "s": "Salsa picante de jengibre"}, {"a": "Cebolla", "s": "Salsa de jengibre, cebolla amarilla salteada, cebollín"}, {"a": "Arroz", "s": "Salsa picante de jengibre"}, {"a": "Maíz", "s": "Pollo frito (fécula de maíz) — confírmalo con el cliente", "cc": true}, {"a": "Ajonjolí", "s": "Salsa de jengibre, semillas de ajonjolí"}, {"a": "Ajo", "s": "Salsa picante de jengibre"}, {"a": "Lácteos", "s": "Mantequilla"}, {"a": "Jengibre", "s": "Salsa picante de jengibre"}], 
+        "pair": {"w": "Riesling, Pinot Gris/Grigio o Sauvignon Blanc — equilibran el picor del jengibre.", "r": "Pinot Noir o mezclas frutales de taninos bajos. Ojo: los taninos altos amargan el jengibre.", "s": "Junmai terroso o taru sake — su aroma a madera realza el jengibre, la pimienta y la soya."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/72n8vD3NS3tN7POtJ_Ljtpet35Gqob2kAOKpBGz9U5g/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/dd56b1c3-3831-4cdf-bb66-4da84827b029.jpg"
+      }, 
+      {
+        "name": "Tempura Brie", 
+        "cat": "KITCHEN", 
+        "ings": ["Queso brie frito en tempura", "Salsa de soya con frambuesa"], 
+        "alg": [{"a": "Gluten", "s": "Salsa de frambuesa, brie tempura"}, {"a": "Soya", "s": "Salsa de frambuesa, brie tempura"}, {"a": "Pescado", "s": "Frito en la misma freidora que pescado", "cc": true}, {"a": "Mariscos", "s": "Frito en la misma freidora que mariscos", "cc": true}, {"a": "Camarón", "s": "Frito en la misma freidora que camarón", "cc": true}, {"a": "Hongos", "s": "Frito en la misma freidora que hongos", "cc": true}, {"a": "Cebolla", "s": "Frito en la misma freidora que cebolla", "cc": true}, {"a": "Arroz", "s": "Frito en la misma freidora que productos con arroz", "cc": true}, {"a": "Maíz", "s": "Salsa de frambuesa, brie tempura"}, {"a": "Lácteos", "s": "Queso brie"}], 
+        "pair": {"w": "Champagne o espumoso de método tradicional, Chardonnay sin roble o Riesling semiseco.", "r": "Pinot Noir o Merlot — ligeros y de taninos bajos, van con lo cremoso del brie.", "s": "Junmai Ginjo ligero (Dewazakura) o Daiginjo — cortan el aceite de la fritura."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/IflcSq32tw7lo3CvVj-tmdcKpiz99etcLRfEgzIcTNE/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/cab19bc2-c465-44a6-ad83-d6ade00d947b.jpg"
+      }, 
+      {
+        "name": "Tempura Plate", 
+        "cat": "KITCHEN", 
+        "ings": ["Verduras tempura (cebolla blanca, calabaza japonesa, espárrago, shiitake)", "Camarón tempura", "Daikon rallado", "Caldo dashi"], 
+        "alg": [{"a": "Gluten", "s": "Empanizado tempura; frito en la misma freidora que productos con gluten"}, {"a": "Soya", "s": "Frito en la misma freidora que productos con soya", "cc": true}, {"a": "Pescado", "s": "Caldo dashi; frito en la misma freidora que pescado", "cc": true}, {"a": "Mariscos", "s": "Camarón tempura; frito en la misma freidora que mariscos", "cc": true}, {"a": "Camarón", "s": "Camarón tempura; frito en la misma freidora que camarón", "cc": true}, {"a": "Hongos", "s": "Shiitake (verduras tempura)"}, {"a": "Cebolla", "s": "Cebolla blanca; frito en la misma freidora que cebolla", "cc": true}, {"a": "Arroz", "s": "Frito en la misma freidora que productos con arroz", "cc": true}], 
+        "pair": {"w": "Espumosos (Cava, blanc de blancs, brut), Sauvignon Blanc o Chardonnay con roble.", "r": "Malbec o Cabernet Sauvignon de cuerpo medio — los taninos cortan lo frito.", "s": "Nama seco y ácido o genshu sin diluir — aguantan los sabores fritos."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/hp3g0didDI3FKgMkDHYIsWz0zUxipUyjk2Jv6Wdap0s/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/23b863fc-0d51-478a-bc16-210032abd186.jpg"
+      }, 
+      {
+        "name": "Tempura Udon Soup", 
+        "cat": "KITCHEN", 
+        "ings": ["Caldo dashi", "Fideos udon de trigo", "Espárragos blanqueados", "Pastel de pescado", "Camarón tempura", "Huevo onsen (opcional)"], 
+        "alg": [{"a": "Gluten", "s": "Fideos udon, pastel de pescado, camarón tempura"}, {"a": "Huevo", "s": "Huevo onsen (opcional)"}, {"a": "Soya", "s": "Pastel de pescado"}, {"a": "Pescado", "s": "Caldo dashi, pastel de pescado"}, {"a": "Mariscos", "s": "Camarón tempura, pastel de pescado"}, {"a": "Camarón", "s": "Camarón tempura"}], 
+        "pair": {"w": "Sauvignon Blanc o Albariño — su acidez fresca corta la riqueza del caldo.", "r": "Pinot Noir — cuerpo ligero y taninos bajos; no domina el platillo.", "s": "Junmai seco — su umami complementa el caldo sin opacar los fideos."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/Sm5uEoSqiRJKxDwpdEAglDrYhLRtvLn0Pu1NbRZevmI/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/aac7f312-17b5-4f42-beb1-8984e1d051c0.jpg"
+      }, 
+      {
+        "name": "Spicy Chorizo Ramen", 
+        "cat": "KITCHEN", 
+        "ings": ["Caldo cremoso de cerdo", "Togarashi itokiri", "Fideos de trigo y huevo", "Maíz", "Cebollín", "Brotes de bambú", "Chorizo", "Chile seco", "Huevo onsen (opcional)"], 
+        "alg": [{"a": "Gluten", "s": "Caldo cremoso de cerdo, fideos de trigo y huevo, brotes de bambú"}, {"a": "Huevo", "s": "Fideos de trigo y huevo, huevo onsen"}, {"a": "Soya", "s": "Caldo cremoso de cerdo, brotes de bambú"}, {"a": "Cítricos", "s": "Togarashi itokiri"}, {"a": "Solanáceas", "s": "Togarashi itokiri, chile seco"}, {"a": "Canola", "s": "Fideos de trigo y huevo"}, {"a": "Cebolla", "s": "Cebollín, brotes de bambú"}, {"a": "Cerdo", "s": "Caldo cremoso de cerdo, chorizo"}, {"a": "Maíz", "s": "Maíz, chorizo"}, {"a": "Ajonjolí", "s": "Caldo cremoso, brotes de bambú, togarashi itokiri"}, {"a": "Ajo", "s": "Caldo cremoso de cerdo, chorizo"}, {"a": "Lácteos", "s": "Caldo cremoso de cerdo"}, {"a": "Jengibre", "s": "Caldo cremoso de cerdo, togarashi itokiri"}], 
+        "pair": {"w": "Riesling, Pinot Gris o Chardonnay con roble — equilibran el caldo graso, salado y picante.", "r": "Pinot Noir o mezclas tintas — notas de cereza que cortan la grasa del cerdo.", "s": "Junmai de cuerpo y acidez alta o Nigori cremoso (Joto Junmai Nigori, Sujin Junmai)."}
+      }, 
+      {
+        "name": "Scallop Ceviche", 
+        "cat": "BARRA FRÍA", 
+        "ings": ["Callo de hacha (hotate)", "Pulpo (tako)", "Camarón dulce (amaebi)", "Salsa picante de vinagre y limón", "Pico de gallo", "Totopos"], 
+        "alg": [{"a": "Pescado", "s": "Totopos fritos en la misma freidora que pescado", "cc": true}, {"a": "Mariscos", "s": "Callo de hacha, pulpo, camarón dulce; totopos en la misma freidora que mariscos"}, {"a": "Camarón", "s": "Camarón dulce; totopos en la misma freidora que camarón"}, {"a": "Hongos", "s": "Totopos fritos en la misma freidora que hongos", "cc": true}, {"a": "Cítricos", "s": "Salsa de vinagre y limón, pico de gallo, totopos"}, {"a": "Solanáceas", "s": "Salsa picante de vinagre, pico de gallo"}, {"a": "Cebolla", "s": "Pico de gallo; totopos en la misma freidora que cebolla", "cc": true}, {"a": "Arroz", "s": "Totopos fritos en la misma freidora que productos con arroz", "cc": true}, {"a": "Maíz", "s": "Totopos"}, {"a": "Ajo", "s": "Salsa picante de vinagre y limón"}], 
+        "pair": {"w": "Albariño o Sauvignon Blanc — frescos y minerales, complementan el marisco y el curado cítrico.", "r": "Pinot Noir o mezclas seleccionadas — ligeros, ácidos y de taninos bajos.", "s": "Junmai Ginjo o Daiginjo ligero y algo frutal — limpio y elegante, como un buen Sauvignon Blanc."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/R778HKckvh54HBu0G7kGEOXDuI8SVX5K24p2pIUUY_w/resize:fit:1080:1080/plain/s3://toasttab/restaurants/restaurant-189440000000000000/menu/items/2/item-1100000000066961462_1722284596.jpg"
+      }, 
+      {
+        "name": "Hamachi / Salmon Usuzukuri", 
+        "cat": "BARRA FRÍA", 
+        "ings": ["Hamachi o salmón", "Salsa cítrica de yuzu", "Aceite de chile", "Pico de gallo", "Cebolla en rodajas", "Cilantro"], 
+        "alg": [{"a": "Gluten", "s": "Aceite de chile, salsa cítrica de yuzu"}, {"a": "Palma", "s": "Aceite de chile"}, {"a": "Soya", "s": "Salsa cítrica de yuzu, aceite de chile"}, {"a": "Pescado", "s": "Hamachi / salmón"}, {"a": "Cítricos", "s": "Pico de gallo, salsa cítrica de yuzu"}, {"a": "Solanáceas", "s": "Pico de gallo, aceite de chile"}, {"a": "Cebolla", "s": "Cebolla en rodajas, aceite de chile"}, {"a": "Arroz", "s": "Aceite de chile"}, {"a": "Maíz", "s": "Aceite de chile"}, {"a": "Ajonjolí", "s": "Aceite de chile"}, {"a": "Ajo", "s": "Aceite de chile"}, {"a": "Cilantro", "s": "Cilantro de guarnición"}], 
+        "pair": {"w": "Riesling seco a semiseco o Albariño — acidez fresca que no opaca el pescado.", "r": "Pinot Noir — acidez brillante y taninos mínimos. Los tintos pesados chocan con los aceites del pescado.", "s": "Junmai Ginjo, nama o Daiginjo — ligeros, frescos y algo frutales; realzan la textura del pescado crudo."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/I9un-5kiHqeulssfG6UAmWyZXp3-svBwN4IEcl3KK-o/resize:fit:1080:1080/plain/s3://toasttab/restaurants/restaurant-189440000000000000/menu/items/4/item-1100000000066961464_1722295874.jpg"
+      }, 
+      {
+        "name": "Salmon Tartare", 
+        "cat": "BARRA FRÍA", 
+        "ings": ["Salmón", "Mango", "Pico de gallo", "Aguacate", "Yuzu ponzu", "Salsa de mango y shiso"], 
+        "alg": [{"a": "Gluten", "s": "Yuzu ponzu"}, {"a": "Soya", "s": "Yuzu ponzu"}, {"a": "Pescado", "s": "Salmón"}, {"a": "Cítricos", "s": "Pico de gallo, yuzu ponzu"}, {"a": "Fruta de hueso", "s": "Mango, salsa de mango y shiso"}, {"a": "Solanáceas", "s": "Pico de gallo"}, {"a": "Cebolla", "s": "Pico de gallo"}, {"a": "Aguacate", "s": "Aguacate"}], 
+        "pair": {"w": "Sauvignon Blanc o Riesling — brillantes, aromáticos y con un toque dulce.", "r": "Pinot Noir frutal — taninos bajos y acidez alta; evita notas amargas o metálicas.", "s": "Junmai Ginjo aromático (refleja el dulzor del mango) o Nigori cremoso (equilibra el salmón mantecoso)."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/icCSN98A-sjUumIN8o7hWAvspDeQrQKDFIJcrRq1eCI/resize:fit:1080:1080/plain/s3://toasttab/restaurants/restaurant-189440000000000000/menu/items/6/item-1100000000066961466_1722284643.jpg"
+      }, 
+      {
+        "name": "Sukiyaki Beef Tacos", 
+        "cat": "KITCHEN", 
+        "ings": ["Res sukiyaki", "Tortillas de harina", "Pico de gallo", "Cebollín frito", "Salsa chipotle-guajillo", "Limón de guarnición"], 
+        "alg": [{"a": "Gluten", "s": "Tortillas, salsa chipotle-guajillo, res sukiyaki; cebollín frito en la misma freidora que gluten"}, {"a": "Soya", "s": "Res sukiyaki; cebollín frito en aceite de soya — confírmalo con el cliente", "cc": true}, {"a": "Pescado", "s": "Res sukiyaki; cebollín frito en la misma freidora que pescado", "cc": true}, {"a": "Mariscos", "s": "Cebollín frito en la misma freidora que mariscos", "cc": true}, {"a": "Camarón", "s": "Cebollín frito en la misma freidora que camarón", "cc": true}, {"a": "Hongos", "s": "Cebollín frito en la misma freidora que hongos", "cc": true}, {"a": "Cítricos", "s": "Pico de gallo, salsa chipotle-guajillo, limón de guarnición"}, {"a": "Solanáceas", "s": "Pico de gallo, salsa chipotle-guajillo"}, {"a": "Cebolla", "s": "Pico de gallo, cebollín frito, res sukiyaki, salsa chipotle-guajillo"}, {"a": "Arroz", "s": "Cebollín frito en la misma freidora que productos con arroz", "cc": true}, {"a": "Maíz", "s": "Salsa chipotle-guajillo; cebollín frito en la misma freidora que maíz", "cc": true}, {"a": "Ajo", "s": "Salsa chipotle-guajillo"}], 
+        "pair": {"w": "Riesling semiseco o Chardonnay con roble ligero — complementan el umami y cortan la riqueza.", "r": "Tintos ligeros a medios con acidez brillante y taninos bajos.", "s": "Junmai, nama semiseco o Yamahai — robustos para la res dulce y umami sin quedar opacados."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/sHXO7T-ZYf57_ypVpXN6SG7nf_HxN85mNR4FkrxzswM/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/58bd5d19-6c29-4f2e-8e09-bedc66e4cb34.jpg"
+      }, 
+      {
+        "name": "Emperor's Roll", 
+        "cat": "ROLLOS ESPECIALES", 
+        "ings": ["Camarón tempura", "Mezcla picante de cangrejo de nieve", "Espárrago", "Toro de atún aleta azul", "Aguacate", "Jalapeños", "Masago habanero", "Tobiko", "Aderezo cítrico de yuzu", "Arroz de sushi"], 
+        "alg": [{"a": "Gluten", "s": "Camarón tempura, tobiko"}, {"a": "Huevo", "s": "Mezcla picante de cangrejo de nieve"}, {"a": "Soya", "s": "Aderezo de yuzu, mezcla de cangrejo (aceite de soya), masago habanero, camarón tempura (lecitina de soya)"}, {"a": "Pescado", "s": "Toro de atún aleta azul, masago habanero, tobiko"}, {"a": "Mariscos", "s": "Camarón tempura, cangrejo de nieve"}, {"a": "Camarón", "s": "Camarón tempura"}, {"a": "Cítricos", "s": "Aderezo cítrico de yuzu"}, {"a": "Solanáceas", "s": "Jalapeños, mezcla de cangrejo, masago habanero"}, {"a": "Canola", "s": "Aderezo de yuzu, mezcla de cangrejo"}, {"a": "Arroz", "s": "Arroz de sushi; camarón frito en la misma freidora que productos con arroz"}, {"a": "Maíz", "s": "Camarón tempura (fécula de maíz)"}, {"a": "Ajo", "s": "Mezcla picante de cangrejo"}, {"a": "Lácteos", "s": "El camarón se fríe en la misma freidora que productos lácteos", "cc": true}, {"a": "Aguacate", "s": "Aguacate"}], 
+        "pair": {"w": "Riesling semiseco o Chardonnay con roble ligero — cortan el toro graso y la tempura.", "r": "Tintos de cuerpo medio con acidez brillante y taninos suaves.", "s": "Junmai o Daiginjo semiseco — equilibran el toro graso y el aderezo intenso."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/Jt1PGws8k2YO_Scv4gASGmbAGSEG9Izbky8Uj_dVXCg/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/5552cd79-94ca-42b6-84eb-6db668547ab5.jpg"
+      }, 
+      {
+        "name": "Matador", 
+        "cat": "ROLLOS ESPECIALES", 
+        "ings": ["Yellowtail picante", "Queso crema", "Pepino", "Cilantro", "Filete mignon sellado con cayena", "Jalapeños", "Ponzu de ajo", "Aceite de chile", "Arroz de sushi"], 
+        "alg": [{"a": "Gluten", "s": "Aceite de chile, ponzu de ajo"}, {"a": "Palma", "s": "Aceite de chile"}, {"a": "Huevo", "s": "Yellowtail picante"}, {"a": "Soya", "s": "Yellowtail picante (aceite de soya en la mayonesa), ponzu de ajo, aceite de chile"}, {"a": "Pescado", "s": "Yellowtail picante"}, {"a": "Cítricos", "s": "Ponzu de ajo"}, {"a": "Solanáceas", "s": "Yellowtail picante, filete con cayena, ponzu de ajo, aceite de chile, jalapeños"}, {"a": "Canola", "s": "Ponzu de ajo, yellowtail picante"}, {"a": "Cebolla", "s": "Aceite de chile"}, {"a": "Arroz", "s": "Arroz de sushi, aceite de chile"}, {"a": "Maíz", "s": "Aceite de chile"}, {"a": "Ajonjolí", "s": "Aceite de chile"}, {"a": "Ajo", "s": "Yellowtail picante, ponzu de ajo, aceite de chile"}, {"a": "Lácteos", "s": "Queso crema"}, {"a": "Cilantro", "s": "Cilantro"}], 
+        "pair": {"w": "Riesling seco o Sauvignon Blanc sin roble — acidez que corta la grasa del pescado y equilibra la res.", "r": "Pinot Noir — ligero, ácido y de taninos suaves para el pescado crudo + filete.", "s": "Junmai Ginjo o Tokubetsu Junmai con cuerpo — equilibran el hamachi mantecoso y la res umami."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/5OnFfgSc9gllgOuPmUa3FYqdgJatV3ydaU_468HEkXU/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/586a6b1a-ca89-4768-9b86-07a0474ca242.jpg"
+      }, 
+      {
+        "name": "Barcelona Sunset", 
+        "cat": "ROLLOS ESPECIALES", 
+        "ings": ["Yellowtail picante", "Aguacate", "Pepino", "Yellowtail", "Tobiko", "Alioli de habanero", "Arroz de sushi"], 
+        "alg": [{"a": "Huevo", "s": "Yellowtail picante, alioli de habanero"}, {"a": "Soya", "s": "Yellowtail picante, alioli de habanero"}, {"a": "Pescado", "s": "Yellowtail picante, yellowtail, tobiko"}, {"a": "Solanáceas", "s": "Yellowtail picante, alioli de habanero"}, {"a": "Arroz", "s": "Arroz de sushi"}, {"a": "Ajo", "s": "Yellowtail picante, alioli de habanero"}, {"a": "Jengibre", "s": "Alioli de habanero"}, {"a": "Aguacate", "s": "Aguacate"}], 
+        "pair": {"w": "Riesling o Albariño — acidez fresca y un toque de azúcar que limpian el picor del habanero.", "r": "Tintos ligeros de taninos bajos, ligeramente fríos — el tanino alto aviva el picante.", "s": "Ginjo o Junmai Ginjo frío para sabores limpios, o Nigori cremoso que neutraliza el picor."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/s5hpKWtA7ihKvsDR4m06zu3JAL6rW6XWWgb0VXi4jdM/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/68f8ad90-89c3-462b-a4c2-558061765153.jpg"
+      }, 
+      {
+        "name": "Heat Stroke", 
+        "cat": "ROLLOS ESPECIALES", 
+        "ings": ["Atún picante", "Aguacate", "Pepino", "Salmón del Atlántico", "Pulpa de limón", "Jalapeños", "Cilantro", "Arroz de sushi"], 
+        "alg": [{"a": "Huevo", "s": "Atún picante"}, {"a": "Soya", "s": "Atún picante"}, {"a": "Pescado", "s": "Atún picante, salmón del Atlántico"}, {"a": "Cítricos", "s": "Pulpa de limón"}, {"a": "Solanáceas", "s": "Atún picante, jalapeños"}, {"a": "Arroz", "s": "Arroz de sushi"}, {"a": "Ajo", "s": "Atún picante"}, {"a": "Aguacate", "s": "Aguacate"}, {"a": "Cilantro", "s": "Cilantro"}], 
+        "pair": {"w": "Riesling o rosado seco — su dulzor ligero equilibra el picante y el pescado.", "r": "Pinot Noir o mezcla tinta ligera, ligeramente fría — frutal, no choca con el pescado crudo.", "s": "Nigori — cremoso y con un toque dulce; cubre la lengua y apaga el picor."}, 
+        "img": "https://d1w7312wesee68.cloudfront.net/os-tR6WKCUdlOg8ie-m_O4fsp5vehhuZTwkcRjdK9lM/resize:fit:1080:1080/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/80a4b015-385e-405f-8cca-611f7d73cd5b.jpg"
+      },
+      {
+        "name": "King Midas", 
+        "cat": "ROLLOS ESPECIALES", 
+        "ings": ["Atún picante", "Aguacate", "Pepino", "Hamachi", "Pulpa de limón", "Jalapeños", "Cilantro", "Arroz de sushi"], 
+        "alg": [{"a": "Huevo", "s": "Atún picante"}, {"a": "Soya", "s": "Atún picante* (la mezcla contiene aceite de soya — confirmar con el cliente)"}, {"a": "Pescado", "s": "Atún picante, Hamachi"}, {"a": "Cítricos", "s": "Pulpa de limón"}, {"a": "Solanáceas", "s": "Atún picante, jalapeños"}, {"a": "Arroz", "s": "Arroz de sushi"}, {"a": "Ajo", "s": "Atún picante"}, {"a": "Canola", "s": "Atún picante* (la mezcla contiene aceite de canola — confirmar con el cliente)"}, {"a": "Jengibre", "s": "Jengibre encurtido"}, {"a": "Aguacate", "s": "Aguacate"}, {"a": "Cilantro", "s": "Cilantro"}], 
+        "pair": {"w": "Riesling semiseco o Albariño — su ligero dulzor refresca el picante del atún y el jalapeño; su alta acidez corta la cremosidad del aguacate y el pescado graso.", "r": "Pinot Noir — taninos muy bajos y buena acidez que cortan la textura rica del aguacate, el yellowtail y el atún picante; su perfil terroso y de fruta roja sutil realza el umami del pescado crudo sin chocar con el cilantro.", "s": "Junmai Ginjo — su acidez brillante y aromas frutales cortan el aguacate y el yellowtail mantecoso, y realzan el limón y el cilantro. Alternativa: un nigori ligero — ligeramente dulce y turbio, cubre el paladar y alivia el picor del jalapeño."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/1gZMq4LnCKuJUTLePipIV0zdOUE5BsbItg69dKJh-sw/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/cd2c6a50-fd11-4b20-9932-6a114b762d0d.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/OxOrS67iiyPx0DM3rDWaF2gegfJdpO9XKrf7akcvoFw/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/cd2c6a50-fd11-4b20-9932-6a114b762d0d.jpg"
+      },
+      {
+        "name": "Diabla Say",
+        "cat": "ROLLOS ESPECIALES",
+        "ings": ["Atún picante", "Atún de siete especias", "Cilantro", "Yamagobo", "Cítrico de habanero", "Aceite de trufa", "Cebollín", "Masago habanero", "Arroz de sushi"],
+        "alg": [{"a": "Gluten", "s": "Cítrico de habanero, masago habanero, yamagobo"}, {"a": "Huevo", "s": "Atún picante"}, {"a": "Soya", "s": "Atún picante* (la mezcla contiene aceite de soya — confirmar con el cliente), cítrico de habanero, yamagobo"}, {"a": "Pescado", "s": "Atún picante, atún de siete especias, masago habanero"}, {"a": "Hongos", "s": "Aceite de trufa"}, {"a": "Cítricos", "s": "Atún de siete especias, cítrico de habanero"}, {"a": "Solanáceas", "s": "Atún picante, atún de siete especias, masago habanero, cítrico de habanero"}, {"a": "Cebolla", "s": "Cebollín"}, {"a": "Arroz", "s": "Arroz de sushi"}, {"a": "Ajonjolí", "s": "Atún de siete especias"}, {"a": "Ajo", "s": "Atún picante"}, {"a": "Canola", "s": "Atún picante* (la mezcla contiene aceite de canola — confirmar con el cliente), cítrico de habanero, aceite de trufa"}, {"a": "Jengibre", "s": "Jengibre encurtido, atún de siete especias"}, {"a": "Cilantro", "s": "Cilantro"}],
+        "pair": {"w": "Blancos aromáticos como Riesling — su sutil azúcar residual refresca el picante del habanero y las siete especias, y su acidez natural equilibra el marinado cítrico y limpia el atún. Evitar blancos muy secos o con barrica (chocan con los chiles y hacen que el alcohol se sienta áspero).", "r": "Pinot Noir — taninos muy bajos y buena acidez que cortan el cítrico de habanero y el atún picante; su perfil terroso y de fruta roja sutil realza el umami del pescado crudo sin chocar con el cilantro ni la trufa.", "s": "Nigori — turbio, cremoso y dulce; el sedimento de arroz cubre la lengua y neutraliza el picor del habanero. Alternativa más seca: un Junmai Ginjo afrutado con buena acidez — corta el aceite de trufa, limpia el paladar y resalta el cítrico de habanero y el cilantro."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/XQLWTvDvpEV6_Ct7MlN4KrkcN7prEQciSQJuEx7pYEo/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/5d51f4da-8a03-4a73-ab02-41de07bc629f.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/QdyULU8D4Sb_gTr-CVPoZu7nx_WirqFm2smMUhJwt2A/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/5d51f4da-8a03-4a73-ab02-41de07bc629f.jpg"
+      },
+      {
+        "name": "Mr. Wonderful",
+        "cat": "ROLLOS ESPECIALES",
+        "ings": ["Atún albacora", "Yamagobo", "Cilantro", "Pepino", "Salmón sockeye", "Aguacate", "Cítrico de jalapeño", "Aceite de trufa", "Cebollín", "Arroz de sushi"],
+        "alg": [{"a": "Gluten", "s": "Yamagobo"}, {"a": "Soya", "s": "Cítrico de jalapeño, yamagobo"}, {"a": "Pescado", "s": "Salmón sockeye, atún albacora"}, {"a": "Hongos", "s": "Aceite de trufa"}, {"a": "Cítricos", "s": "Cítrico de jalapeño"}, {"a": "Solanáceas", "s": "Cítrico de jalapeño"}, {"a": "Cebolla", "s": "Cebollín"}, {"a": "Arroz", "s": "Arroz de sushi"}, {"a": "Canola", "s": "Cítrico de jalapeño, aceite de trufa"}, {"a": "Jengibre", "s": "Jengibre encurtido"}, {"a": "Aguacate", "s": "Aguacate"}, {"a": "Cilantro", "s": "Cilantro"}],
+        "pair": {"w": "Sauvignon Blanc de alta acidez — sus aromas reflejan las notas verdes del cilantro, el cebollín y el jalapeño; la fruta tropical, toronja y ralladura de limón realzan el cítrico, y su acidez limpia el paladar del aceite de trufa, el aguacate, el salmón sockeye y la albacora.", "r": "Pinot Noir — tinto de alta acidez y taninos bajos que equilibra el salmón sockeye y la albacora grasos y la trufa terrosa, junto con el picor del cítrico de jalapeño; su fruta roja sutil realza el umami del pescado crudo sin chocar con el cilantro ni el yamagobo. Evitar tintos pesados y tánicos como Cabernet Sauvignon (con el aceite del pescado dejan un sabor metálico).", "s": "Junmai Ginjo o Junmai Daiginjo fresco y limpio — seco (valor \"+\" alto en el Sake Meter Value) y afrutado/floral; limpia el paladar, corta la trufa y el aguacate, y complementa el cítrico, el cilantro, el salmón y la albacora."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/Gv191T0hYpaZbIh-e2IkVbaFV6iBNuyM-83DolU4BmQ/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/88cb449e-553d-40e0-ad92-6ef5350eb85f.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/epeHk7v3NHYQJQjKbwVrlAGFR48K8TkNyyg8MG7aP5w/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/88cb449e-553d-40e0-ad92-6ef5350eb85f.jpg"
+      },
+      {
+        "name": "Street Fighter II",
+        "cat": "ROLLOS ESPECIALES",
+        "ings": ["Mezcla de cangrejo de nieve", "Pepino", "Cilantro", "Atún de siete especias", "Jalapeños", "Ponzu de ajo", "Arroz de sushi"],
+        "alg": [{"a": "Gluten", "s": "Ponzu de ajo"}, {"a": "Huevo", "s": "Mezcla de cangrejo de nieve"}, {"a": "Soya", "s": "Ponzu de ajo, mezcla de cangrejo de nieve* (la mezcla contiene aceite de soya — confirmar con el cliente)"}, {"a": "Pescado", "s": "Atún de siete especias"}, {"a": "Mariscos", "s": "Mezcla de cangrejo de nieve"}, {"a": "Cítricos", "s": "Ponzu de ajo, atún de siete especias"}, {"a": "Solanáceas", "s": "Jalapeños, atún de siete especias"}, {"a": "Arroz", "s": "Arroz de sushi"}, {"a": "Ajonjolí", "s": "Atún de siete especias"}, {"a": "Ajo", "s": "Ponzu de ajo"}, {"a": "Canola", "s": "Mezcla de cangrejo de nieve* (la mezcla contiene aceite de canola — confirmar con el cliente)"}, {"a": "Jengibre", "s": "Jengibre encurtido, atún de siete especias"}, {"a": "Cilantro", "s": "Cilantro"}],
+        "pair": {"w": "Riesling alemán semiseco — su azúcar natural refresca el picor del jalapeño y el atún de siete especias; su alta acidez equilibra la mezcla rica de cangrejo de nieve y acompaña el cítrico del ponzu de ajo sin opacar el cilantro fresco ni el jalapeño.", "r": "Pinot Noir — sus taninos bajos son clave (los taninos pesados chocan con los mariscos y hacen que el picor del jalapeño se sienta amargo); su alta acidez y fruta roja cortan la mezcla rica de cangrejo de nieve y acompañan el ponzu de ajo sin opacar el atún ni el cilantro.", "s": "Junmai Ginjo — sus aromas frutales y florales complementan el cilantro y el pepino sin ser demasiado dulces; su umami natural equilibra el atún de siete especias y el ponzu de ajo, y su final limpio corta la mezcla de cangrejo de nieve y limpia el paladar tras el picor del jalapeño."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/uvwPs54w2YLE89InwuR_JVo3BYDZSHQiSqxzjmcQbKQ/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/030da938-df0c-4df6-8cb7-c41086288c85.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/MKGkspR9r8JWSRsp_CtmdWqALXZWYHWjHxB4YigwDJU/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/030da938-df0c-4df6-8cb7-c41086288c85.jpg"
+      },
+      {
+        "name": "Ladybug Samba",
+        "cat": "ROLLOS ESPECIALES",
+        "ings": ["Salmón karaage", "Albahaca", "Cilantro", "Tomate", "Aguacate", "Masago habanero", "Salsa de jalapeño cítrica (contiene trufa)", "Arroz de sushi"],
+        "alg": [{"a": "Gluten", "s": "Salmón karaage, salsa de jalapeño cítrica, masago habanero"}, {"a": "Soya", "s": "Masa de tempura* (contiene lecitina de soya), salsa de jalapeño cítrica"}, {"a": "Pescado", "s": "Salmón karaage, masago rojo"}, {"a": "Solanáceas", "s": "Tomate, salsa de jalapeño cítrica, masago rojo"}, {"a": "Arroz", "s": "Arroz de sushi"}, {"a": "Maíz", "s": "Salmón karaage"}, {"a": "Ajo", "s": "Salsa de jalapeño cítrica"}, {"a": "Cítricos", "s": "Salsa de jalapeño cítrica"}, {"a": "Canola", "s": "Salsa de jalapeño cítrica"}, {"a": "Jengibre", "s": "Salsa de jalapeño cítrica, jengibre encurtido"}, {"a": "Aguacate", "s": "Aguacate"}, {"a": "Cilantro", "s": "Cilantro"}],
+        "pair": {"w": "Blanco fresco y ácido, rosado o espumoso — la efervescencia corta la fritura y el pescado graso; las notas cítricas complementan las salsas y el arroz avinagrado.", "r": "Pinot Noir o mezcla tinta jugosa de taninos bajos, ligeramente frío — corta la textura frita y complementa el salmón rico y el arroz.", "s": "Junmai Ginjo o Tokubetsu Junmai — su acidez refrescante equilibra la fritura y el salmón graso; limpia el paladar sin opacar las hierbas frescas."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/g3g9dFkn7fZn_lzXYpEqQ1Cj5T8AfLl5Obc1-ZaDFPQ/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/6960e44e-eda7-4bd6-8dd8-a2b8b974cb7c.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/OCDaWYa5dXFuuEYYpo8dFBP5t5424-LFKJygeTrfh3A/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/6960e44e-eda7-4bd6-8dd8-a2b8b974cb7c.jpg"
+      },
+      {
+        "name": "Tres Diablos",
+        "cat": "ROLLOS ESPECIALES",
+        "ings": ["Atún picante", "Pepino", "Cilantro", "Atún", "Salmón del Atlántico", "Yellowtail", "Tobiko", "Masago rojo", "Cebollín", "Arroz de sushi", "Salsa de fresa habanero"],
+        "alg": [{"a": "Huevo", "s": "Atún picante"}, {"a": "Soya", "s": "Atún picante"}, {"a": "Pescado", "s": "Atún picante, hamachi, salmón, atún, tobiko, masago rojo"}, {"a": "Solanáceas", "s": "Atún picante, salsa de fresa habanero, masago rojo"}, {"a": "Arroz", "s": "Arroz de sushi"}, {"a": "Maíz", "s": "Salsa de fresa habanero"}, {"a": "Ajo", "s": "Atún picante"}, {"a": "Cilantro", "s": "Cilantro"}],
+        "pair": {"w": "Riesling semiseco o Sauvignon Blanc — el azúcar residual y la alta acidez equilibran el picante del chile y la riqueza de la mayo picante, realzando el umami del pescado.", "r": "Pinot Noir o mezcla tinta ligera, ligeramente frío — sabores frutales brillantes que combinan con el atún cremoso y el picante sin chocar con el pescado crudo.", "s": "Nigori o sake espumoso — el dulzor suave y la textura cremosa del nigori calman el picor; la carbonatación del espumoso limpia el paladar entre bocados picantes."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/vKbU1gVO-ZO49_-0Yi88-g22oCy8VNAavkFYuKor8y0/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/1ef99597-c07d-4957-bae9-91184637726e.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/DxeupK1i4lstTxWsaZVqlE2NcpDj4UN1nG9M9GU7sHE/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/1ef99597-c07d-4957-bae9-91184637726e.jpg"
+      },
+      {
+        "name": "Madrid Moon",
+        "cat": "ROLLOS ESPECIALES",
+        "ings": ["Yellowtail picante", "Pepino", "Cilantro", "Mezcla de cangrejo picante sellada", "Tobiko negro", "Cebollín", "Salsa de jalapeño cítrica (contiene trufa)", "Arroz de sushi"],
+        "alg": [{"a": "Gluten", "s": "Tobiko negro, salsa de jalapeño cítrica"}, {"a": "Huevo", "s": "Yellowtail picante, mezcla de cangrejo picante"}, {"a": "Soya", "s": "Yellowtail picante* y mezcla de cangrejo picante* (las mezclas contienen aceite de soya y canola — confírmalo con el cliente), salsa de jalapeño cítrica"}, {"a": "Pescado", "s": "Yellowtail picante, tobiko negro"}, {"a": "Mariscos", "s": "Mezcla de cangrejo picante"}, {"a": "Cítricos", "s": "Salsa de jalapeño cítrica"}, {"a": "Solanáceas", "s": "Yellowtail picante, salsa de jalapeño cítrica, mezcla de cangrejo picante"}, {"a": "Cebolla", "s": "Cebollín"}, {"a": "Arroz", "s": "Arroz de sushi"}, {"a": "Ajo", "s": "Salsa de jalapeño cítrica"}, {"a": "Canola", "s": "Salsa de jalapeño cítrica, yellowtail picante, mezcla de cangrejo picante"}, {"a": "Jengibre", "s": "Salsa de jalapeño cítrica, jengibre encurtido"}, {"a": "Cilantro", "s": "Cilantro"}],
+        "pair": {"w": "Riesling semiseco o Albariño — equilibran el pescado rico y mantecoso, cortan la cremosidad de la mayo picante y refrescan el picor en el paladar.", "r": "Pinot Noir o mezcla tinta ligera de taninos bajos, ligeramente frío — no choca con el pescado crudo; sus sabores frutales combinan con el yellowtail cremoso y el picante.", "s": "Nigori o sake espumoso — el dulzor suave y la textura cremosa del nigori calman el picor; la carbonatación del espumoso limpia el paladar entre bocados picantes."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/Vg1KBEOf4o5sUAugQe217FWFPppP6DqoDBeLKZ4TuLM/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/0cc35994-6d10-4ebb-8dd3-69ca2f558a88.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/iganXgFJ_-Hz3tYjuvUwe0PQpYQ0vi4cmT2JHDUpydk/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/0cc35994-6d10-4ebb-8dd3-69ca2f558a88.jpg"
+      },
+      {
+        "name": "Legend",
+        "cat": "ROLLOS ESPECIALES",
+        "ings": ["Camarón tempura", "Pepino", "Mezcla sellada de callo y cangrejo de nieve", "Tobiko negro", "Tobiko", "Glaseado de soya", "Arroz de sushi"],
+        "alg": [{"a": "Gluten", "s": "Camarón tempura, tobiko negro, tobiko, glaseado de soya"}, {"a": "Huevo", "s": "Mezcla de callo y cangrejo"}, {"a": "Soya", "s": "Camarón tempura* y mezcla de callo/cangrejo* (la mezcla y el camarón tempura contienen aceite de soya — confírmalo con el cliente), glaseado de soya"}, {"a": "Pescado", "s": "Tobiko, tobiko negro"}, {"a": "Mariscos", "s": "Mezcla de callo y cangrejo, camarón tempura"}, {"a": "Camarón", "s": "Camarón tempura"}, {"a": "Cebolla", "s": "Glaseado de soya"}, {"a": "Arroz", "s": "Arroz de sushi"}, {"a": "Maíz", "s": "Glaseado de soya"}, {"a": "Canola", "s": "Mezcla de callo y cangrejo* (aceite de canola en la mayonesa — confírmalo con el cliente)"}, {"a": "Jengibre", "s": "Glaseado de soya, jengibre encurtido"}],
+        "pair": {"w": "Sauvignon Blanc, Albariño o Pinot Grigio — frescos, ligeros y de alta acidez; complementan la mezcla cremosa y dulce de callo y cangrejo mientras limpian el paladar del glaseado de soya entre bocados.", "r": "Pinot Noir o mezcla tinta ligera, ligeramente frío — ligero y de taninos bajos; no choca con los mariscos delicados y su acidez ayuda a limpiar el paladar entre bocados.", "s": "Junmai Ginjo — perfil brillante, ligeramente dulce y frutal que corta la cremosidad de la mezcla de mariscos con mayonesa, mientras su acidez ligera une todo el rollo."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/jfWxo64H82v1eCGz4IDOoQotIO441iQoSBm1tVjEImk/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/97a06ba2-d079-46a0-a482-687f90ad029c.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/xX_3GL-nunfKFQKRUvJhMmJrr8VsnPar4SJ1v4pyRpU/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/97a06ba2-d079-46a0-a482-687f90ad029c.jpg"
+      },
+      {
+        "name": "Ultimate Dragon",
+        "cat": "ROLLOS ESPECIALES",
+        "ings": ["Mezcla de cangrejo de nieve", "Aguacate", "Pepino", "Anguila de agua dulce (unagi)", "Tobiko negro", "Glaseado de soya", "Ajonjolí", "Jengibre encurtido", "Arroz de sushi"],
+        "alg": [{"a": "Gluten", "s": "Glaseado de soya, tobiko negro, unagi"}, {"a": "Aguacate", "s": "Aguacate"}, {"a": "Huevo", "s": "Mezcla de cangrejo* (huevo en la mayonesa)"}, {"a": "Soya", "s": "Unagi, glaseado de soya, mezcla de cangrejo* (contiene aceite de soya — confírmalo con el cliente)"}, {"a": "Pescado", "s": "Unagi, tobiko negro"}, {"a": "Mariscos", "s": "Mezcla de cangrejo de nieve"}, {"a": "Cebolla", "s": "Glaseado de soya"}, {"a": "Arroz", "s": "Arroz de sushi"}, {"a": "Maíz", "s": "Glaseado de soya, unagi"}, {"a": "Ajonjolí", "s": "Semilla de ajonjolí"}, {"a": "Canola", "s": "Mezcla de cangrejo* (contiene aceite de canola — confírmalo con el cliente)"}, {"a": "Jengibre", "s": "Glaseado de soya, jengibre encurtido"}],
+        "pair": {"w": "Riesling semiseco o Albariño mineral — acidez firme y un toque dulce igualan la anguila grasa y el glaseado dulce, y limpian el paladar.", "r": "Pinot Noir ligeramente frío o Merlot frutal — taninos bajos que no chocan con la anguila ni dejan sabor metálico.", "s": "Junmai con cuerpo, Yamahai rico en umami o Nigori cremoso — ligeramente dulces y algo funky; aguantan la anguila rica."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/6_JfDPVKPJMzPL6NiQukZeScSuFhy-vqXdlnwYmLBic/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/8224aeb5-2b53-451e-8467-f823bf64ab89.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/EhjSkMCFZwLw2NSjgdppJZK1cjhVST4kk2a_zs3JwYw/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/8224aeb5-2b53-451e-8467-f823bf64ab89.jpg"
+      },
+      {
+        "name": "Union",
+        "cat": "ROLLOS ESPECIALES",
+        "ings": ["Camarón tempura", "Pepino", "Atún picante", "Mayonesa picante", "Cebollín", "Glaseado de soya", "Hojuelas de tempura", "Arroz de sushi"],
+        "alg": [{"a": "Gluten", "s": "Glaseado de soya, camarón tempura, hojuelas de tempura"}, {"a": "Huevo", "s": "Atún picante*, mayonesa picante* (huevo en la mayonesa)"}, {"a": "Soya", "s": "Camarón tempura, hojuelas de tempura, glaseado de soya, atún picante*, mayonesa picante* (la mayonesa contiene aceite de soya — confírmalo con el cliente)"}, {"a": "Pescado", "s": "Atún picante"}, {"a": "Mariscos", "s": "Camarón tempura"}, {"a": "Camarón", "s": "Camarón tempura"}, {"a": "Solanáceas", "s": "Atún picante, mayonesa picante"}, {"a": "Cebolla", "s": "Glaseado de soya, cebollín"}, {"a": "Arroz", "s": "Arroz de sushi"}, {"a": "Maíz", "s": "Glaseado de soya, hojuelas de tempura, camarón tempura"}, {"a": "Ajo", "s": "Atún picante, mayonesa picante"}, {"a": "Canola", "s": "Atún picante*, mayonesa picante* (la mayonesa contiene aceite de canola — confírmalo con el cliente)"}, {"a": "Jengibre", "s": "Glaseado de soya, jengibre encurtido"}],
+        "pair": {"w": "Riesling semiseco o Albariño — equilibran el pescado, cortan la mayonesa picante y refrescan el picor.", "r": "Pinot Noir o mezcla tinta ligera, ligeramente fría — taninos bajos y fruta brillante con el atún cremoso y el picante.", "s": "Nigori o sake espumoso — el Nigori suaviza el picor con su dulzor cremoso; las burbujas limpian el paladar."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/yeZDkBwk0NJufVJ1R4-4PLHlqsyBBjz_GL0yttJ2Kpc/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/5cbb9d8c-5e85-480c-9626-c4f1a7a272e6.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/818FmM_uFgT_zymcPPson2n20R8RfZOKE_D-zFfik_o/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/5cbb9d8c-5e85-480c-9626-c4f1a7a272e6.jpg"
+      },
+      {
+        "name": "Love Hunter",
+        "cat": "ROLLOS ESPECIALES",
+        "ings": ["Patas de cangrejo de nieve", "Mango", "Shibazuke", "Cilantro", "Atún aleta amarilla", "Aguacate", "Pasta de chile con ajo frito", "Salsa cítrica de tomate, habanero y jalapeño (contiene trufa)", "Arroz de sushi"],
+        "alg": [{"a": "Gluten", "s": "Shibazuke, pasta de chile con ajo"}, {"a": "Aguacate", "s": "Aguacate, salsa cítrica de tomate, habanero y jalapeño"}, {"a": "Cilantro", "s": "Cilantro"}, {"a": "Soya", "s": "Pasta de chile con ajo, salsa cítrica de tomate, habanero y jalapeño"}, {"a": "Pescado", "s": "Atún aleta amarilla"}, {"a": "Mariscos", "s": "Cangrejo de nieve"}, {"a": "Cítricos", "s": "Shibazuke, salsa cítrica de tomate, habanero y jalapeño"}, {"a": "Solanáceas", "s": "Shibazuke, pasta de chile con ajo, salsa cítrica de tomate, habanero y jalapeño"}, {"a": "Cebolla", "s": "Pasta de chile con ajo"}, {"a": "Arroz", "s": "Arroz de sushi, pasta de chile con ajo"}, {"a": "Maíz", "s": "Pasta de chile con ajo, shibazuke"}, {"a": "Ajonjolí", "s": "Pasta de chile con ajo"}, {"a": "Ajo", "s": "Pasta de chile con ajo, salsa cítrica de tomate, habanero y jalapeño"}, {"a": "Canola", "s": "Salsa cítrica de tomate, habanero y jalapeño"}, {"a": "Jengibre", "s": "Shibazuke"}],
+        "pair": {"w": "Blanco o rosado fresco y ácido, o espumoso — la acidez y las burbujas cortan el aguacate y el atún; las notas cítricas acompañan las salsas picantes.", "r": "Pinot Noir o mezcla tinta jugosa de taninos bajos — corta un rollo con mucha salsa sin chocar con el pescado.", "s": "Junmai Ginjo aromático y fresco o Tokubetsu Junmai — su acidez equilibra las salsas y el atún sin opacar el mango ni los encurtidos."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/uw7Ff-ZMa-xvgz-VguEhKToaGgxfsLAyZLJgue6pIYU/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/3fa95792-118c-4433-8044-79f5d41f8ba1.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/qGzBL57eVy_hC_8tOrXsE2NH2ixOtmw6YR42GH42pIM/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/3fa95792-118c-4433-8044-79f5d41f8ba1.jpg"
+      },
+      {
+        "name": "Spanish Lover",
+        "cat": "ROLLOS ESPECIALES",
+        "ings": ["Mezcla de cangrejo de nieve", "Mezcla cremosa de callo", "Aguacate", "Cilantro", "Salmón Red King sellado", "Pimienta cayena", "Tobiko negro", "Aceite de chile", "Alioli de cilantro", "Arroz de sushi"],
+        "alg": [{"a": "Gluten", "s": "Tobiko negro, aceite de chile"}, {"a": "Aguacate", "s": "Aguacate"}, {"a": "Cilantro", "s": "Cilantro, alioli de cilantro"}, {"a": "Huevo", "s": "Mezcla de cangrejo, mezcla cremosa de callo, alioli de cilantro"}, {"a": "Soya", "s": "Aceite de chile, mezcla de cangrejo*, mezcla cremosa de callo*, alioli de cilantro* (contienen aceite de soya — confírmalo con el cliente)"}, {"a": "Pescado", "s": "Tobiko negro, salmón Red King sellado"}, {"a": "Mariscos", "s": "Mezcla de cangrejo, mezcla cremosa de callo"}, {"a": "Solanáceas", "s": "Aceite de chile, pimienta cayena"}, {"a": "Cebolla", "s": "Aceite de chile"}, {"a": "Arroz", "s": "Arroz de sushi, aceite de chile"}, {"a": "Maíz", "s": "Aceite de chile"}, {"a": "Ajonjolí", "s": "Aceite de chile"}, {"a": "Ajo", "s": "Aceite de chile"}, {"a": "Canola", "s": "Mezcla de cangrejo, mezcla cremosa de callo, aceite de chile, alioli de cilantro"}, {"a": "Jengibre", "s": "Jengibre encurtido"}],
+        "pair": {"w": "Sauvignon Blanc fresco y ácido o Riesling seco — equilibran el dulzor del cangrejo/callo y la grasa del salmón y el alioli sin sentirse pesados.", "r": "Pinot Noir o mezcla tinta frutal — su acidez corta la salsa cremosa y los aceites del pescado. Evita tintos tánicos (sabor metálico).", "s": "Junmai Ginjo de cuerpo medio o Honjozo seco — estructura y acidez para cortar el salmón graso y las mezclas cremosas."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/TAGlAApCLu3AzHDa5Aqsi_7nxNQ1YX1kFrhnY4rBW7E/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/89e4b0aa-5e3b-45ec-a9e8-0c0632d3793e.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/ZFPmUP3BAVPbGrcW37NpHDUxSazBQ3RlnbLQWlx81nY/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/89e4b0aa-5e3b-45ec-a9e8-0c0632d3793e.jpg"
+      },
+      {
+        "name": "Sweet Kiss",
+        "cat": "ROLLOS ESPECIALES",
+        "ings": ["Camarón tempura", "Mezcla de cangrejo de nieve", "Cilantro", "Salmón del Atlántico sellado", "Tobiko", "Salsa cítrica de chile dulce y jalapeño", "Arroz de sushi"],
+        "alg": [{"a": "Gluten", "s": "Camarón tempura, tobiko, salsa cítrica de chile dulce y jalapeño"}, {"a": "Cilantro", "s": "Cilantro"}, {"a": "Huevo", "s": "Mezcla de cangrejo"}, {"a": "Soya", "s": "Camarón tempura, mezcla de cangrejo*, salsa cítrica de chile dulce y jalapeño* (contienen aceite de soya — confírmalo con el cliente)"}, {"a": "Pescado", "s": "Salmón del Atlántico sellado, tobiko"}, {"a": "Mariscos", "s": "Camarón tempura, mezcla de cangrejo"}, {"a": "Camarón", "s": "Camarón tempura"}, {"a": "Cítricos", "s": "Salsa cítrica de chile dulce y jalapeño"}, {"a": "Solanáceas", "s": "Salsa cítrica de chile dulce y jalapeño"}, {"a": "Arroz", "s": "Arroz de sushi"}, {"a": "Maíz", "s": "Camarón tempura"}, {"a": "Ajo", "s": "Salsa cítrica de chile dulce y jalapeño"}, {"a": "Canola", "s": "Mezcla de cangrejo*, salsa cítrica de chile dulce y jalapeño* (contienen aceite de canola — confírmalo con el cliente)"}, {"a": "Jengibre", "s": "Jengibre encurtido"}],
+        "pair": {"w": "Albariño fresco o Riesling seco — acidez y ligero dulzor equilibran el cangrejo dulce y la grasa del salmón y el camarón frito.", "r": "Pinot Noir o mezcla tinta frutal — su acidez corta la mezcla cremosa de cangrejo. Evita tintos tánicos (sabor metálico).", "s": "Junmai Ginjo o sake espumoso semidulce y fresco — igualan la acidez cítrica y calman el picor (un Daiginjo se opaca)."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/tNc9_rUkCl-CKl9d3ywSPWY8P4H1FCOKugoDogrwdrE/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/c3762740-4f03-45e8-9508-156daf1a04a2.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/OfNXakJSyJlNnrdAd_Q9A27qVvb0MaUFZvm77uR7vqE/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/c3762740-4f03-45e8-9508-156daf1a04a2.jpg"
+      },
+      {
+        "name": "Casanova",
+        "cat": "ROLLOS ESPECIALES",
+        "ings": ["Patas de cangrejo de nieve", "Aguacate", "Shibazuke", "Mezcla sellada de cangrejo picante", "Mezcla de callo", "Glaseado de soya", "Pico de gallo", "Arroz de sushi"],
+        "alg": [{"a": "Gluten", "s": "Shibazuke"}, {"a": "Aguacate", "s": "Aguacate"}, {"a": "Cilantro", "s": "Pico de gallo"}, {"a": "Huevo", "s": "Mezcla de cangrejo picante, mezcla de callo"}, {"a": "Soya", "s": "Mezcla de callo*, mezcla de cangrejo picante* (contienen aceite de soya — confírmalo con el cliente)"}, {"a": "Mariscos", "s": "Patas de cangrejo, mezcla de cangrejo, mezcla de callo"}, {"a": "Cítricos", "s": "Shibazuke, pico de gallo"}, {"a": "Solanáceas", "s": "Shibazuke, mezcla de cangrejo picante, pico de gallo"}, {"a": "Cebolla", "s": "Glaseado de soya, pico de gallo"}, {"a": "Arroz", "s": "Arroz de sushi"}, {"a": "Maíz", "s": "Shibazuke, glaseado de soya"}, {"a": "Canola", "s": "Mezcla de cangrejo*, mezcla de callo* (contienen aceite de canola — confírmalo con el cliente)"}, {"a": "Jengibre", "s": "Jengibre encurtido, glaseado de soya"}],
+        "pair": {"w": "Riesling o espumoso seco — el dulzor del Riesling doma el cangrejo picante y su acidez corta el aguacate y el glaseado; las burbujas limpian el paladar. Evita Chardonnay con barrica.", "r": "Pinot Noir o mezcla tinta frutal de taninos bajos — su acidez corta el aguacate y el cangrejo picante y complementa el pico y el shibazuke. Evita Cabernet.", "s": "Junmai Ginjo seco o Taruzake — limpios, ligeros y estructurados; un Daiginjo floral chocaría con el pico y el cangrejo picante."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/u1wxUmf4EXT0Rrj80Iz7jilzyFzIye2BhceklKSjSt8/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/c1c2ca8b-1bcf-42e4-8099-ca302fcac6da.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/rtus1Vuy7PoY-suGu_5ozjiowD6hffZDnxGnfxCpMlM/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/c1c2ca8b-1bcf-42e4-8099-ca302fcac6da.jpg"
+      },
+      {
+        "name": "Mexican Ninja",
+        "cat": "ROLLOS ESPECIALES",
+        "ings": ["Atún picante", "Pepino", "Camarón", "Atún", "Salmón", "Hamachi", "Cebollín", "Ponzu de ajo", "Arroz de sushi"],
+        "alg": [{"a": "Gluten", "s": "Ponzu de ajo"}, {"a": "Huevo", "s": "Mezcla de atún picante"}, {"a": "Soya", "s": "Ponzu de ajo, mezcla de atún picante* (contiene aceite de soya — confírmalo con el cliente)"}, {"a": "Pescado", "s": "Atún picante, atún, hamachi, salmón"}, {"a": "Mariscos", "s": "Camarón"}, {"a": "Camarón", "s": "Camarón"}, {"a": "Cítricos", "s": "Ponzu de ajo"}, {"a": "Solanáceas", "s": "Atún picante"}, {"a": "Cebolla", "s": "Cebollín"}, {"a": "Arroz", "s": "Arroz de sushi"}, {"a": "Ajo", "s": "Ponzu de ajo, mezcla de atún picante"}, {"a": "Canola", "s": "Mezcla de atún picante* (contiene aceite de canola — confírmalo con el cliente)"}, {"a": "Jengibre", "s": "Jengibre encurtido"}],
+        "pair": {"w": "Riesling o espumoso seco — el dulzor residual del Riesling doma el picante del atún y su acidez corta el pescado graso y el ponzu de ajo; las burbujas limpian el paladar. Evita el Chardonnay con barrica (se opaca).", "r": "Pinot Noir o mezcla tinta frutal de taninos bajos — su acidez corta la riqueza del atún picante y el ponzu. Evita tintos tánicos como Cabernet (sabor metálico con pescado).", "s": "Junmai Ginjo (ligero, fresco, notas de manzana verde/melón, final limpio) o Nigori semiseco — su textura cremosa refresca el picor del atún y resalta el dulzor del pescado crudo y el camarón."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/HlaElgasI2HcI4sFrkmP-65oKnQCi2Zu3k90Ppa48XE/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/b05a4cd6-3d77-4031-bf89-383dd9b356b7.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/ahI4YVConatyei4oHc1oYdwkbfIqBoVymWsno6TOlpo/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/b05a4cd6-3d77-4031-bf89-383dd9b356b7.jpg"
+      },
+      {
+        "name": "Scorpio Sting",
+        "cat": "ROLLOS ESPECIALES",
+        "ings": ["Salmón", "Aguacate", "Pepino", "Mango", "Cilantro", "Salmón del Atlántico sellado", "Pico de gallo", "Glaseado de chile habanero", "Arroz de sushi"],
+        "alg": [{"a": "Aguacate", "s": "Aguacate"}, {"a": "Cilantro", "s": "Cilantro, pico de gallo"}, {"a": "Pescado", "s": "Salmón del Atlántico, salmón del Atlántico sellado"}, {"a": "Fruta de hueso", "s": "Mango"}, {"a": "Solanáceas", "s": "Pico de gallo, glaseado de chile habanero"}, {"a": "Arroz", "s": "Arroz de sushi"}, {"a": "Ajo", "s": "Glaseado de chile habanero"}, {"a": "Jengibre", "s": "Jengibre encurtido"}],
+        "pair": {"w": "Riesling semiseco o Sauvignon Blanc — el menor alcohol y el toque de azúcar residual del Riesling calman el glaseado de habanero, y sus sabores de fruta de hueso combinan con el mango; el Sauvignon Blanc es la opción seca — sus notas herbáceas reflejan el cilantro, el pepino y el pico de gallo, y su perfil cítrico corta la grasa del salmón sellado y el aguacate.", "r": "Pinot Noir frío — los taninos bajos son clave (los taninos pesados chocan con los aceites del salmón y vuelven amargo el picor del habanero); su cuerpo ligero y alta acidez cortan la riqueza del salmón y el aguacate, y sus sabores de frutos rojos complementan el mango y el pico de gallo.", "s": "Junmai Daiginjo — muy refinado y aromático, con notas de melón maduro y durazno que realzan el mango y el pico de gallo; su textura limpia y ligera corta los aceites del salmón sellado y el aguacate, y suaviza el picor del glaseado de habanero."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/pivuPityRZ92Z5ZMfrbnFfD4Ux8oUl9GigSxOr03TU8/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/63379b0d-0a01-4cdf-ad71-00a5dd911373.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/nW4WCN5MFOREYbDLRAVgRpwVsJYMRC_brnms8cMzpi4/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/63379b0d-0a01-4cdf-ad71-00a5dd911373.jpg"
+      },
+      {
+        "name": "Skin on Skin",
+        "cat": "ROLLOS ESPECIALES",
+        "ings": ["Piel de salmón con togarashi", "Pepino", "Salmón del Atlántico", "Cebollín", "Glaseado de soya", "Arroz de sushi"],
+        "alg": [{"a": "Gluten", "s": "Glaseado de soya"}, {"a": "Soya", "s": "Glaseado de soya"}, {"a": "Pescado", "s": "Piel de salmón con togarashi, salmón del Atlántico"}, {"a": "Cítricos", "s": "Piel de salmón con togarashi, glaseado de soya"}, {"a": "Solanáceas", "s": "Piel de salmón con togarashi"}, {"a": "Cebolla", "s": "Glaseado de soya, cebollín"}, {"a": "Arroz", "s": "Arroz de sushi"}, {"a": "Maíz", "s": "Glaseado de soya"}, {"a": "Ajonjolí", "s": "Piel de salmón con togarashi"}, {"a": "Jengibre", "s": "Glaseado de soya, piel de salmón con togarashi"}],
+        "pair": {"w": "Vino espumoso de seco a semiseco — la efervescencia limpia del paladar la grasa de la piel de salmón frita y del salmón del Atlántico; las notas a levadura de los espumosos de método tradicional crean una sinergia umami con el glaseado de soya dulce.", "r": "Pinot Noir — su fruta madura de cereza y arándano crea un contraste dulce-ácido que refleja el glaseado de soya y suaviza el picor del togarashi; su alta acidez natural limpia el paladar y corta la riqueza del salmón y la piel de salmón.", "s": "Nigori — su textura cremosa y dulzor suave calman el picor del togarashi, reflejan el glaseado de soya y tienen cuerpo suficiente para la piel de salmón frita. Alternativa: un Junmai rico y de alta acidez — su perfil sabroso une el salmón del Atlántico y el glaseado de soya en una bomba de umami y maneja bien el picor vegetal del cebollín."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/0mcgoUe5vp5WcoaUi7EsUjR-TLspDv5_loxmy3eaQhI/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/a0e8681c-4b70-42e9-b2bc-2e9c5c4b1b37.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/CIiX4L1sp7akkdDyUbcZ80VYVKo5BVO-u8GYnxhG-Uk/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/a0e8681c-4b70-42e9-b2bc-2e9c5c4b1b37.jpg"
+      },
+      {
+        "name": "Sweet Seduction",
+        "cat": "ROLLOS ESPECIALES",
+        "ings": ["Mezcla de cangrejo de nieve", "Pepino", "Anguila de agua dulce (unagi)", "Glaseado de coco y mango", "Glaseado de soya", "Cebollín", "Jengibre encurtido", "Arroz de sushi"],
+        "alg": [{"a": "Gluten", "s": "Glaseado de soya, unagi"}, {"a": "Huevo", "s": "Mezcla de cangrejo* (huevo en la mayonesa)"}, {"a": "Soya", "s": "Unagi, glaseado de soya, mezcla de cangrejo* (contiene aceite de soya — confírmalo con el cliente)"}, {"a": "Pescado", "s": "Unagi"}, {"a": "Mariscos", "s": "Mezcla de cangrejo de nieve"}, {"a": "Fruta de hueso", "s": "Glaseado de coco y mango"}, {"a": "Cebolla", "s": "Glaseado de soya, cebollín"}, {"a": "Arroz", "s": "Arroz de sushi, unagi"}, {"a": "Maíz", "s": "Glaseado de soya, unagi"}, {"a": "Canola", "s": "Mezcla de cangrejo* (contiene aceite de canola — confírmalo con el cliente)"}, {"a": "Lácteos", "s": "Glaseado de coco y mango"}, {"a": "Jengibre", "s": "Glaseado de soya, jengibre encurtido"}, {"a": "Leguminosas", "s": "Glaseado de coco y mango"}, {"a": "Nueces/Frutos de árbol", "s": "Glaseado de coco y mango* (el coco se considera fruto de árbol — confírmalo con el cliente)"}],
+        "pair": {"w": "Riesling semiseco o Chenin Blanc (no totalmente seco) — un toque de azúcar residual iguala los glaseados dulces de mango-coco y soya para que el vino no sepa amargo; su alta acidez corta la grasa de la anguila y la riqueza de la mezcla de cangrejo, equilibrando el paladar entre bocados.", "r": "Pinot Noir — alta acidez y taninos bajos cortan la anguila grasa y dulce sin dejar sabor amargo o metálico. O un Merlot frutal (bajo en taninos, sin barrica) — sus notas de ciruela y frutos rojos complementan los glaseados de soya y mango-coco sin opacar el delicado cangrejo.", "s": "Junmai Daiginjo — su aroma limpio y frutal refleja el glaseado tropical de mango-coco y no opaca el delicado cangrejo. Alternativa: un Namasake ligeramente dulce — su textura vibrante y viscosa y su dulzor natural enlazan con el glaseado de soya y manejan bien la grasa de la anguila asada. Evita un nama con mucho koji (sus notas funky opacan lo dulce del rollo)."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/8c5VtifVjiJI2fU3TjxSCgPLT-Bw7SGlhUD-8VOMpVE/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/36a3e87b-ae8a-4e00-a4b0-927d17535301.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/bRrgvR7gInbPOCt1QVdvhATGnomkwSZZANrSUGjr-k4/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/36a3e87b-ae8a-4e00-a4b0-927d17535301.jpg"
+      },
+      {
+        "name": "Last Samurai",
+        "cat": "ROLLOS ESPECIALES",
+        "ings": ["Yellowtail picante", "Pepino", "Atún albacora", "Cebolla blanca", "Cebollín", "Cilantro", "Pimienta cayena", "Salsa cítrica de yuzu", "Jengibre encurtido", "Arroz de sushi"],
+        "alg": [{"a": "Gluten", "s": "Salsa cítrica de yuzu"}, {"a": "Huevo", "s": "Mezcla de yellowtail picante* (huevo en la mayonesa)"}, {"a": "Soya", "s": "Salsa cítrica de yuzu, yellowtail picante* (contiene aceite de soya — confírmalo con el cliente)"}, {"a": "Pescado", "s": "Yellowtail picante, atún albacora"}, {"a": "Cítricos", "s": "Salsa cítrica de yuzu"}, {"a": "Solanáceas", "s": "Yellowtail picante, pimienta cayena"}, {"a": "Cebolla", "s": "Cebolla blanca, cebollín"}, {"a": "Arroz", "s": "Arroz de sushi"}, {"a": "Canola", "s": "Mezcla de yellowtail picante* (contiene aceite de canola — confírmalo con el cliente)"}, {"a": "Jengibre", "s": "Jengibre encurtido"}, {"a": "Cilantro", "s": "Cilantro"}],
+        "pair": {"w": "Albariño o Sauvignon Blanc (sin barrica) — su alta acidez refleja la salsa cítrica de yuzu y corta la riqueza del yellowtail y la albacora; la salinidad marina y las notas de fruta de hueso del Albariño realzan el pescado y suavizan el picor de la cayena, mientras las notas herbáceas y cítricas del Sauvignon Blanc combinan con el cilantro, el cebollín, la cebolla blanca y el pepino.", "r": "Pinot Noir — su cuerpo ligero y taninos bajos no chocan con el yellowtail y la albacora crudos; su alta acidez acompaña la salsa de yuzu, sus notas terrosas equilibran la cebolla blanca, el cebollín y el cilantro, y su fruta y alcohol moderado mantienen a raya el picor de la cayena.", "s": "Junmai Ginjo o Junmai Daiginjo — ambos limpian el paladar entre bocados de yellowtail y albacora sin chocar con el yuzu. El Junmai Ginjo aporta fruta ligera y un final fresco que calma la cayena y equilibra la cebolla, el cebollín y el cilantro; el Junmai Daiginjo, más limpio y ligero, deja lucir el pescado, el pepino y el aderezo de yuzu."},
+        "thumb": "https://d1w7312wesee68.cloudfront.net/qseqDHuCZXk7l2lDA0EDzZjOYcplMizhP2-QB9HRwHQ/resize:fit:360:360/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/1cdc5c89-90eb-45bf-b0a8-c9c5b27924ed.jpg",
+        "img": "https://d1w7312wesee68.cloudfront.net/mjSssz9DbYwz7woREeGpoqra3W5LANFR1ZuP-GzPWnY/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/3d4c69ad-6484-48ce-8d6f-8d273c744f0d/MenuItem/1cdc5c89-90eb-45bf-b0a8-c9c5b27924ed.jpg"
+      }
+    ]
+  }
+};
+
+const GLOSSARY = {
+  en: {
+    title: "GLOSSARY",
+    about: "Quick note",
+    watch: "Watch for",
+    dishes: "Menu dishes",
+    items: [
+      {name:"Avocado", body:"Fruit used fresh in rolls and tartare.", tags:["Mango shiso sauces", "Roll fillings"]},
+      {name:"Cilantro", body:"Fresh herb garnish with a bright citrusy flavor.", tags:["Pico de gallo", "Raw dishes"]},
+      {name:"Citrus", body:"Lemon, lime, orange, yuzu, and citrus-based sauces.", tags:["Yuzu", "Ponzu", "Garnishes"]},
+      {name:"Corn", body:"Can appear in corn starch, tortillas, sauces, and toppings.", tags:["Tempura", "Tortilla chips", "Chorizo"]},
+      {name:"Dairy", body:"Milk-based ingredients such as butter, cheese, and creamy broths.", tags:["Butter", "Brie", "Creamy broth"]},
+      {name:"Egg", body:"Found in mayo, some noodles, onsen egg, and spicy fish mixes.", tags:["Kewpie", "Noodles", "Aioli"]},
+      {name:"Fish", body:"Includes fish proteins, dashi, bonito, roe, and shared stations.", tags:["Dashi", "Bonito", "Roe"]},
+      {name:"Garlic", body:"Common in marinades, ponzu, chili oils, and spicy sauces.", tags:["Ponzu", "Chili oil", "Marinades"]},
+      {name:"Ginger", body:"Used in ginger sauce, pickles, and some spicy seasonings.", tags:["Ginger sauce", "Togarashi"]},
+      {name:"Gluten", body:"Wheat-based items such as noodles, tempura, tortillas, and soy sauces.", tags:["Noodles", "Tempura", "Sauces"]},
+      {name:"Mushroom", body:"Includes mushrooms directly and fryer cross-contact notes.", tags:["Shiitake", "Shared fryer"]},
+      {name:"Nightshade", body:"Peppers, tomatoes, chiles, and spice blends.", tags:["Jalapeno", "Tomato", "Togarashi"]},
+      {name:"Onion", body:"Onions, scallions, and onion-based sauces or garnishes.", tags:["Scallion", "Pico de gallo", "Sauces"]},
+      {name:"Palm", body:"Palm-derived oil appears in some chili oil ingredients.", tags:["Chili oil"]},
+      {name:"Pork", body:"Pork broth or chorizo-based ingredients.", tags:["Ramen", "Chorizo"]},
+      {name:"Rapeseed", body:"Canola/rapeseed oil used in sauces, aioli, fryer, or noodles.", tags:["Canola oil", "Aioli", "Fryer"]},
+      {name:"Rice", body:"Rice, rice vinegar, mirin, sake, and shared fryer notes.", tags:["Sushi rice", "Mirin", "Sake"]},
+      {name:"Sesame", body:"Sesame seeds, sesame oil, or sesame in sauces and seasonings.", tags:["Seeds", "Sauces"]},
+      {name:"Shellfish", body:"Crab, scallop, octopus, squid, shrimp, and fryer cross-contact.", tags:["Crab", "Scallop", "Squid"]},
+      {name:"Shrimp", body:"Shrimp and shrimp-based tempura or raw bar items.", tags:["Tempura shrimp", "Amaebi"]},
+      {name:"Soy", body:"Soy sauce, tofu, miso, soybean oil, and soy-based marinades.", tags:["Soy sauce", "Tofu", "Miso"]},
+      {name:"Stone fruit", body:"Fruits with pits, such as mango or fruit-based sauces.", tags:["Mango", "Fruit sauces"]},
+      {name:"Bamboo shoots", body:"Crunchy shoots used in ramen and pork broth dishes.", tags:["Ramen", "Pork broth"], terms:["Bamboo shoots"]},
+      {name:"Bonito flakes", body:"Dried shaved fish flakes; not vegetarian and contains fish.", tags:["Fish", "Dashi", "Garnish"], terms:["Bonito flakes"]},
+      {name:"Chili oil", body:"Spicy infused oil that can include soy, sesame, garlic, onion, or palm.", tags:["Spice", "Soy", "Sesame"], terms:["Chili oil"]},
+      {name:"Dashi broth", body:"Japanese broth commonly made with fish or bonito.", tags:["Fish", "Bonito", "Soup base"], terms:["Dashi broth", "Dashi stock", "Dashi"]},
+      {name:"Fish cake", body:"Processed seafood cake often made with fish and shellfish.", tags:["Fish", "Shellfish", "Soy"], terms:["Fish cake"]},
+      {name:"Habanero masago", body:"Spicy fish roe topping; contains fish and nightshade heat.", tags:["Fish roe", "Habanero", "Nightshade"], terms:["Habanero masago", "Masago"]},
+      {name:"Kewpie mayo", body:"Japanese mayo; usually contains egg and may include soy-based oil.", tags:["Egg", "Soy oil", "Mayo"], terms:["Kewpie Japanese mayo", "Kewpie"]},
+      {name:"Miso vinaigrette", body:"Miso-based dressing; commonly brings soy and rice notes.", tags:["Soy", "Rice", "Dressing"], terms:["Miso vinaigrette", "Miso"]},
+      {name:"Onsen egg", body:"Soft cooked egg served as an optional topping.", tags:["Egg", "Optional topping"], terms:["Onsen egg"]},
+      {name:"Pico de gallo", body:"Fresh tomato, onion, chile, and citrus salsa.", tags:["Tomato", "Onion", "Citrus"], terms:["Pico de gallo"]},
+      {name:"Ponzu", body:"Citrus soy sauce; usually contains soy, citrus, and sometimes fish.", tags:["Soy", "Citrus", "Garlic"], terms:["Ponzu", "Yuzu ponzu", "Garlic ponzu"]},
+      {name:"Sukiyaki beef", body:"Sweet soy-marinated beef; watch for gluten, soy, onion, and fish notes.", tags:["Soy", "Gluten", "Onion"], terms:["Sukiyaki beef"]},
+      {name:"Teriyaki sauce", body:"Sweet soy-based sauce; often contains gluten, soy, corn, and onion.", tags:["Soy", "Gluten", "Corn"], terms:["Teriyaki sauce"]},
+      {name:"Tobiko", body:"Flying fish roe; contains fish and may carry soy or gluten notes.", tags:["Fish roe", "Fish", "Soy"], terms:["Tobiko"]},
+      {name:"Togarashi", body:"Japanese chile seasoning; watch for nightshade and citrus notes.", tags:["Chile", "Nightshade", "Citrus"], terms:["Itokiri togarashi", "Togarashi"]},
+      {name:"Yuzu", body:"Japanese citrus used in ponzu, aioli, and dressings.", tags:["Citrus", "Sauces", "Aioli"], terms:["Yuzu", "Yuzu aioli", "Yuzu ponzu", "Yuzu citrus"]}
+    ]
+  },
+  es: {
+    title: "GLOSARIO",
+    about: "Nota rápida",
+    watch: "Revisar",
+    dishes: "Platillos",
+    items: [
+      {name:"Aguacate", body:"Fruta fresca usada en rollos y tartares.", tags:["Rollos", "Tartare"]},
+      {name:"Ajo", body:"Común en marinados, ponzu, aceites de chile y salsas picantes.", tags:["Ponzu", "Aceite de chile", "Marinados"]},
+      {name:"Ajonjolí", body:"Semillas o aceite de ajonjolí en salsas y sazonadores.", tags:["Semillas", "Salsas"]},
+      {name:"Arroz", body:"Arroz, vinagre de arroz, mirin, sake y notas de freidora compartida.", tags:["Arroz de sushi", "Mirin", "Sake"]},
+      {name:"Camarón", body:"Camarón y productos con camarón, especialmente tempura y barra fría.", tags:["Camarón tempura", "Amaebi"]},
+      {name:"Canola", body:"Aceite de canola en salsas, aioli, freidora o fideos.", tags:["Aceite", "Aioli", "Freidora"]},
+      {name:"Cítricos", body:"Limón, lima, naranja, yuzu y salsas con cítricos.", tags:["Yuzu", "Ponzu", "Guarniciones"]},
+      {name:"Cebolla", body:"Cebolla, cebollin y salsas o guarniciones con cebolla.", tags:["Cebollin", "Pico de gallo", "Salsas"]},
+      {name:"Cerdo", body:"Ingredientes con caldo de cerdo o chorizo.", tags:["Ramen", "Chorizo"]},
+      {name:"Cilantro", body:"Hierba fresca usada como guarnición en algunos platos.", tags:["Pico de gallo", "Barra fría"]},
+      {name:"Fruta de hueso", body:"Frutas con hueso como mango o salsas de fruta.", tags:["Mango", "Salsas de fruta"]},
+      {name:"Gluten", body:"Trigo en fideos, tempura, tortillas y algunas salsas de soya.", tags:["Fideos", "Tempura", "Salsas"]},
+      {name:"Hongos", body:"Hongos directos y posibles notas de contacto en freidora.", tags:["Shiitake", "Freidora compartida"]},
+      {name:"Huevo", body:"Puede estar en mayo, fideos, huevo onsen y mezclas picantes.", tags:["Kewpie", "Fideos", "Aioli"]},
+      {name:"Jengibre", body:"Presente en salsa de jengibre, encurtidos y sazonadores picantes.", tags:["Salsa de jengibre", "Togarashi"]},
+      {name:"Lácteos", body:"Ingredientes con leche como mantequilla, queso y caldos cremosos.", tags:["Mantequilla", "Brie", "Caldo cremoso"]},
+      {name:"Maíz", body:"Puede aparecer en fécula, tortillas, salsas y toppings.", tags:["Tempura", "Totopos", "Chorizo"]},
+      {name:"Mariscos", body:"Cangrejo, callo, pulpo, calamar, camarón y contacto en freidora.", tags:["Cangrejo", "Callo", "Calamar"]},
+      {name:"Palma", body:"Derivados de palma pueden aparecer en aceite de chile.", tags:["Aceite de chile"]},
+      {name:"Pescado", body:"Incluye pescado, dashi, bonito, huevas y estaciones compartidas.", tags:["Dashi", "Bonito", "Huevas"]},
+      {name:"Solanáceas", body:"Chiles, tomate, jalapeño y mezclas de especias.", tags:["Jalapeño", "Tomate", "Togarashi"]},
+      {name:"Soya", body:"Salsa de soya, tofu, miso, aceite de soya y marinados.", tags:["Salsa de soya", "Tofu", "Miso"]},
+      {name:"Aceite de chile", body:"Aceite picante que puede incluir soya, ajonjoli, ajo, cebolla o palma.", tags:["Picante", "Soya", "Ajonjoli"], terms:["Aceite de chile"]},
+      {name:"Alioli", body:"Salsa cremosa tipo mayo; revisar huevo, soya, pescado y citricos.", tags:["Huevo", "Soya", "Citricos"], terms:["Alioli", "Alioli de yuzu", "Alioli de habanero"]},
+      {name:"Brotes de bambu", body:"Brotes crujientes usados en ramen y caldos.", tags:["Ramen", "Caldo"], terms:["Brotes de bambu", "Brotes de bambú"]},
+      {name:"Caldo dashi", body:"Caldo japones que normalmente contiene pescado o bonito.", tags:["Pescado", "Bonito", "Sopa"], terms:["Caldo dashi", "Dashi"]},
+      {name:"Hojuelas de bonito", body:"Laminas secas de pescado; no son vegetarianas.", tags:["Pescado", "Dashi", "Guarnicion"], terms:["Hojuelas de bonito", "Bonito"]},
+      {name:"Huevo onsen", body:"Huevo suave servido como topping opcional.", tags:["Huevo", "Opcional"], terms:["Huevo onsen"]},
+      {name:"Mayonesa Kewpie", body:"Mayonesa japonesa; normalmente contiene huevo y puede tener aceite de soya.", tags:["Huevo", "Soya", "Mayo"], terms:["Mayonesa japonesa Kewpie", "Kewpie"]},
+      {name:"Masago habanero", body:"Hueva de pescado picante; contiene pescado y chile.", tags:["Pescado", "Habanero", "Solanaceas"], terms:["Masago habanero", "Masago"]},
+      {name:"Pastel de pescado", body:"Producto procesado de pescado que puede incluir mariscos o soya.", tags:["Pescado", "Mariscos", "Soya"], terms:["Pastel de pescado"]},
+      {name:"Pico de gallo", body:"Salsa fresca con tomate, cebolla, chile y citricos.", tags:["Tomate", "Cebolla", "Citricos"], terms:["Pico de gallo"]},
+      {name:"Ponzu", body:"Salsa citrica con soya; puede incluir ajo o pescado.", tags:["Soya", "Citricos", "Ajo"], terms:["Ponzu", "Yuzu ponzu", "Ponzu de ajo"]},
+      {name:"Res sukiyaki", body:"Res marinada dulce con soya; revisar gluten, soya, cebolla y pescado.", tags:["Soya", "Gluten", "Cebolla"], terms:["Res sukiyaki"]},
+      {name:"Salsa teriyaki", body:"Salsa dulce de soya; suele tener gluten, soya, maiz y cebolla.", tags:["Soya", "Gluten", "Maiz"], terms:["Salsa teriyaki"]},
+      {name:"Tobiko", body:"Hueva de pez volador; contiene pescado y puede tener soya o gluten.", tags:["Huevas", "Pescado", "Soya"], terms:["Tobiko"]},
+      {name:"Togarashi", body:"Sazonador japones de chile; revisar solanaceas y citricos.", tags:["Chile", "Solanaceas", "Citricos"], terms:["Togarashi", "Togarashi itokiri"]},
+      {name:"Vinagreta de miso", body:"Aderezo con miso; normalmente aporta soya y arroz.", tags:["Soya", "Arroz", "Aderezo"], terms:["Vinagreta de miso", "Miso"]},
+      {name:"Yuzu", body:"Citrico japones usado en ponzu, alioli y aderezos.", tags:["Citricos", "Salsas", "Alioli"], terms:["Yuzu", "Yuzu ponzu"]}
+    ]
+  }
+};
+
+"use strict";
+let lang = "en";
+try { lang = localStorage.getItem("japoAllLang") || (((navigator.language||"").toLowerCase().indexOf("es")===0) ? "es" : "en"); } catch(e){}
+let mode = "contains", query = "", activeChip = null;
+const openCards = new Set();
+const openGlossary = new Set();
+const $ = function(id){ return document.getElementById(id); };
+const $q=$("q"), $clear=$("clearBtn"), $chips=$("chips"), $results=$("results"), $count=$("count"), $hint=$("hint"), $mC=$("mContains"), $mA=$("mAvoid"), $tb=$("themeBtn"), $lb=$("langBtn"), $sub=$("subT"), $ft1=$("ft1"), $ft2=$("ft2"), $glossary=$("glossary"), $glossaryTitle=$("glossaryTitle"), $glossaryToggle=$("glossaryToggle"), $glossaryCards=$("glossaryCards");
+const L = function(){ return DATA[lang]; };
+const T = function(k){ return DATA[lang].ui[k]; };
+const norm = function(s){ return s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,""); };
+
+function textMatch(hay, t){
+  const h = norm(hay);
+  if (t.length >= 5) return h.includes(t);
+  return h.split(/[^a-z0-9]+/).some(function(w){ return w === t; });
+}
+
+function dishAllergenMatches(d, term){
+  const t = norm(term), hard = [], cross = [];
+  d.alg.forEach(function(r){
+    if (textMatch(r.a, t) || textMatch(r.s, t)) { (r.cc ? cross : hard).push(r); }
+  });
+  return { hard: hard, cross: cross };
+}
+
+function dishTextMatch(d, term){
+  const t = norm(term);
+  return textMatch(d.name, t) || d.ings.some(function(i){ return textMatch(i, t); });
+}
+
+function allergenList(){
+  const s = new Set();
+  L().dishes.forEach(function(d){ d.alg.forEach(function(x){ s.add(x.a); }); });
+  return Array.from(s).sort(function(a,b){ return a.localeCompare(b, lang); });
+}
+
+function dishesForGlossaryItem(item){
+  const target = norm(item.name);
+  const exactAllergen = L().dishes.some(function(d){
+    return d.alg.some(function(x){ return norm(x.a) === target; });
+  });
+  const terms = (item.terms || [item.name]).map(norm);
+  return L().dishes
+    .filter(function(d){
+      if (exactAllergen) return d.alg.some(function(x){ return norm(x.a) === target; });
+      return terms.some(function(term){
+        return norm(d.name).includes(term)
+          || d.ings.some(function(i){ return norm(i).includes(term); })
+          || d.alg.some(function(x){ return norm(x.s).includes(term); });
+      });
+    })
+    .map(function(d){ return d.name; });
+}
+
+function findMenuCard(name){
+  return Array.from($results.querySelectorAll(".card")).find(function(card){
+    return card.dataset.id === name;
+  });
+}
+
+function openMenuDish(name){
+  query = "";
+  activeChip = null;
+  $q.value = "";
+  openCards.add(name);
+  render();
+  requestAnimationFrame(function(){
+    const card = findMenuCard(name);
+    if (!card) return;
+    card.classList.add("open");
+    card.scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+}
+
+function getFiltered(){
+  const term = (activeChip || query).trim();
+  if (!term) return { list: L().dishes.map(function(d){ return { d: d, badge: null, rows: [] }; }), term: "" };
+  const out = [];
+  L().dishes.forEach(function(d){
+    const m = dishAllergenMatches(d, term);
+    const has = m.hard.length > 0, cc = m.cross.length > 0;
+    if (mode === "contains") {
+      if (has || cc || dishTextMatch(d, term)) {
+        out.push({ d: d, badge: has ? "hit" : (cc ? "caution" : "name"), rows: m.hard.concat(m.cross) });
+      }
+    } else {
+      if (!has && !cc) { out.push({ d: d, badge: "safe", rows: [] }); }
+      else if (!has && cc) { out.push({ d: d, badge: "caution", rows: m.cross }); }
+    }
+  });
+  if (mode === "avoid") out.sort(function(a,b){ return (a.badge==="caution") - (b.badge==="caution"); });
+  return { list: out, term: term };
+}
+
+const esc = function(s){ return s.replace(/[&<>"]/g, function(c){ return { "&":"&amp;", "<":"&lt;", ">":"&gt;", "\"":"&quot;" }[c]; }); };
+
+function renderChips(){
+  $chips.classList.toggle("safeMode", mode === "avoid");
+  $chips.innerHTML = "";
+  allergenList().forEach(function(a){
+    const b = document.createElement("button");
+    b.textContent = a;
+    if (activeChip === a) b.classList.add("on");
+    b.onclick = function(){
+      activeChip = (activeChip === a) ? null : a;
+      if (activeChip) { query = ""; $q.value = ""; }
+      render();
+    };
+    $chips.appendChild(b);
+  });
+}
+
+function badgeHtml(badge, term){
+  if (!badge || badge === "name") return "";
+  if (badge === "hit") return '<span class="badge hit">' + T("badgeC") + ' ' + esc(term) + '</span>';
+  if (badge === "safe") return '<span class="badge safe">' + T("badgeS") + '</span>';
+  if (badge === "caution") return '<span class="badge caution">' + T("badgeW") + '</span>';
+  return "";
+}
+
+function cardHtml(item, term){
+  const d = item.d;
+  const matched = new Set(item.rows.map(function(r){ return r.a; }));
+  let rows = "";
+  d.alg.forEach(function(r){
+    const hit = term && matched.has(r.a);
+    rows += '<tr class="' + (hit ? "match" : "") + '"><td class="a">' + esc(r.a) + (r.cc ? '<span class="cc">' + T("cc") + '</span>' : '') + '</td><td>' + esc(r.s) + '</td></tr>';
+  });
+  let ings = "";
+  d.ings.forEach(function(i){ ings += '<span>' + esc(i) + '</span>'; });
+  const thumb = d.img ? '<img class="thumb" src="' + (d.thumb || d.img) + '" data-full="' + d.img + '" alt="' + esc(d.name) + '" loading="lazy">' : '';
+  let note = "";
+  if (item.badge === "caution" && mode === "avoid") {
+    note = '<div class="note">' + T("noteA1") + '<b>' + T("noteA2") + '</b>: ' + item.rows.map(function(r){ return esc(r.a); }).join(", ") + T("noteA3") + '</div>';
+  }
+  return '<div class="card ' + (openCards.has(d.name) ? "open" : "") + '" data-id="' + esc(d.name) + '">'
+    + '<div class="card-head">'
+    + '<div class="card-title"><h3>' + esc(d.name) + '</h3><div class="cat-tag">' + esc(d.cat) + '</div></div>'
+    + badgeHtml(item.badge, term)
+    + '<svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>'
+    + '</div><div class="card-body">' + thumb + note
+    + '<div class="sec"><h4>' + T("ing") + '</h4><div class="ing">' + ings + '</div></div>'
+    + '<div class="sec"><h4>' + T("alg") + '</h4><table class="alg">' + rows + '</table></div>'
+    + '<div class="sec">'
+    + '<div class="pair-toggle" onclick="this.classList.toggle(\'open\')"><h4>' + T("pairT") + '</h4><svg class="pair-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>'
+    + '<div class="pair-wrap">'
+    + '<div class="pair">🥂 <b>' + T("w") + ':</b> ' + esc(d.pair.w) + '</div>'
+    + '<div class="pair">🍷 <b>' + T("r") + ':</b> ' + esc(d.pair.r) + '</div>'
+    + '<div class="pair">🍶 <b>' + T("sk") + ':</b> ' + esc(d.pair.s) + '</div>'
+    + '</div></div></div></div>';
+}
+
+function render(){
+  renderChips();
+  const f = getFiltered(), list = f.list, term = f.term;
+  $clear.style.display = ($q.value || activeChip) ? "flex" : "none";
+  if (term) {
+    $count.innerHTML = '<b>' + list.length + '</b> ' + T("of") + ' ' + L().dishes.length + ' ' + T("dishesW") + ' ' + (mode === "contains" ? T("contain") : T("freeOf")) + ' <b>«' + esc(term) + '»</b>' + (mode === "avoid" ? T("avoidNote") : "");
+  } else {
+    $count.innerHTML = '<b>' + L().dishes.length + '</b> ' + T("count0");
+  }
+  if (list.length === 0) {
+    const t1 = mode === "avoid" ? T("e1") : T("e2");
+    const t2 = mode === "avoid" ? T("e1b") : T("e2b");
+    $results.innerHTML = '<div class="empty"><div class="big">' + t1 + '</div><p>' + t2 + '</p></div>';
+    return;
+  }
+  let html = "";
+  L().cats.forEach(function(cat){
+    const items = list.filter(function(x){ return x.d.cat === cat; });
+    if (!items.length) return;
+    let cards = "";
+    items.forEach(function(x){ cards += cardHtml(x, term); });
+    html += '<div class="cat">' + esc(cat) + '</div><div class="cards-grid">' + cards + '</div>';
+  });
+  $results.innerHTML = html;
+}
+
+function renderGlossary(){
+  const g = GLOSSARY[lang];
+  $glossaryTitle.textContent = g.title;
+  let cards = "";
+  g.items.forEach(function(item){
+    let tags = "";
+    let dishTags = "";
+    item.tags.forEach(function(tag){ tags += '<span>' + esc(tag) + '</span>'; });
+    dishesForGlossaryItem(item).forEach(function(name){ dishTags += '<button type="button" class="dish-link" data-dish="' + esc(name) + '">' + esc(name) + '</button>'; });
+    cards += '<div class="card ' + (openGlossary.has(item.name) ? "open" : "") + '" data-id="' + esc(item.name) + '">'
+      + '<div class="card-head">'
+      + '<div class="card-title"><h3>' + esc(item.name) + '</h3><div class="cat-tag">' + esc(g.title) + '</div></div>'
+      + '<svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>'
+      + '</div><div class="card-body">'
+      + '<div class="sec"><h4>' + esc(g.about) + '</h4><p class="glossary-copy">' + esc(item.body) + '</p></div>'
+      + '<div class="sec"><h4>' + esc(g.watch) + '</h4><div class="ing">' + tags + '</div></div>'
+      + '<div class="sec"><h4>' + esc(g.dishes) + '</h4><div class="ing">' + dishTags + '</div></div>'
+      + '</div></div>';
+  });
+  $glossaryCards.innerHTML = '<div class="cards-grid glossary-grid">' + cards + '</div>';
+}
+
+$results.addEventListener("click", function(e){
+  const h = e.target.closest(".card-head");
+  if (!h) return;
+  const c = h.parentElement, id = c.dataset.id;
+  if (openCards.has(id)) openCards.delete(id); else openCards.add(id);
+  c.classList.toggle("open");
+});
+
+$glossaryCards.addEventListener("click", function(e){
+  const link = e.target.closest(".dish-link");
+  if (link) {
+    e.preventDefault();
+    openMenuDish(link.dataset.dish);
+    return;
+  }
+  const h = e.target.closest(".card-head");
+  if (!h) return;
+  const c = h.parentElement, id = c.dataset.id;
+  if (openGlossary.has(id)) openGlossary.delete(id); else openGlossary.add(id);
+  c.classList.toggle("open");
+});
+
+function toggleGlossary(){
+  const isOpen = $glossary.classList.toggle("open");
+  $glossaryToggle.classList.toggle("open", isOpen);
+  const head = $glossaryToggle.querySelector(".card-head");
+  head.setAttribute("aria-expanded", isOpen ? "true" : "false");
+}
+
+$glossaryToggle.addEventListener("click", function(e){
+  const h = e.target.closest(".card-head");
+  if (!h || h.parentElement !== $glossaryToggle) return;
+  toggleGlossary();
+});
+$glossaryToggle.addEventListener("keydown", function(e){
+  if (e.key !== "Enter" && e.key !== " ") return;
+  e.preventDefault();
+  toggleGlossary();
+});
+
+const $lbx = document.getElementById("lightbox");
+$results.addEventListener("click", function(e){
+  if (e.target && e.target.classList && e.target.classList.contains("thumb")) {
+    document.getElementById("lightboxImg").src = e.target.dataset.full || e.target.src;
+    document.getElementById("lightboxImg").alt = e.target.alt;
+    $lbx.classList.add("on");
+  }
+});
+
+$lbx.addEventListener("click", function(){ $lbx.classList.remove("on"); });
+
+function applyLang(l, keepFilters){
+  lang = l;
+  try { localStorage.setItem("japoAllLang", l); } catch(e){}
+  $lb.textContent = (l === "en") ? "ESP" : "ENG";
+  $q.placeholder = T("placeholder");
+  $mC.textContent = T("modeC");
+  $mA.textContent = T("modeA");
+  $sub.textContent = T("sub");
+  $ft1.textContent = T("ft1");
+  $ft2.textContent = T("ft2");
+  document.title = T("title");
+  document.documentElement.lang = l;
+  $hint.textContent = (mode === "contains") ? (query || activeChip ? T("hintC") : T("hint0")) : T("hintA");
+  if (!keepFilters) { activeChip = null; query = ""; $q.value = ""; }
+  renderGlossary();
+  render();
+}
+
+$lb.onclick = function(){ applyLang(lang === "en" ? "es" : "en", false); };
+$q.addEventListener("input", function(){ query = $q.value; activeChip = null; render(); });
+$clear.onclick = function(){ query = ""; $q.value = ""; activeChip = null; render(); $q.focus(); };
+$mC.onclick = function(){ mode = "contains"; $mC.className = "active avoid"; $mA.className = ""; $hint.textContent = T("hintC"); render(); };
+$mA.onclick = function(){ mode = "avoid"; $mA.className = "active safe"; $mC.className = ""; $hint.textContent = T("hintA"); render(); };
+
+function applyTheme(t){
+  document.body.classList.toggle("dark", t === "dark");
+  $tb.textContent = t === "dark" ? "☀️" : "🌙";
+  try { localStorage.setItem("japoAllTheme", t); } catch(e){}
+}
+
+let savedTheme = "dark";
+try { savedTheme = localStorage.getItem("japoAllTheme") || "dark"; } catch(e){}
+applyTheme(savedTheme);
+$tb.onclick = function(){ applyTheme(document.body.classList.contains("dark") ? "light" : "dark"); };
+applyLang(lang, false);
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(function(){});
+}
+
+</script>
+</body>
+</html>
